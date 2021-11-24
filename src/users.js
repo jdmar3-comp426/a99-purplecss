@@ -71,7 +71,43 @@ export async function getUserData() {
     return data;
 }
 
+export async function updateUserStats(newWPM) {
+    let thisUser = "";
+    let avgWPM = "";
+    let matchHistory = "";
+    let numGames = "";
+    getUserData().then((data) => {
+        thisUser = data.email
+        avgWPM = data.avgWPM
+        matchHistory = data.matchHistory
+        numGames = data.numGames
+        if (matchHistory.length < 10) {
+            matchHistory.splice(0, 0, newWPM)
+        } else {
+            matchHistory.splice(0, 0, newWPM)
+            matchHistory.pop()
+        }
+        let sum = 0;
+        for (const wpm of matchHistory) {
+            sum += wpm
+        }
+        avgWPM = sum / matchHistory.length
 
+        fetch(`http://localhost:3000/api/patch/users/${user.uid}`, {
+            method: 'PATCH',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(
+            {'data': 
+                {
+                    'email': thisUser,
+                    'numGames': numGames + 1,
+                    'avgWPM': avgWPM,
+                    'matchHistory': matchHistory,
+                }
+            }),
+        })
+    })
+}
 
 /// DEMO
 // NEED TO ADD THIS LINE AT TOP OF CODE
