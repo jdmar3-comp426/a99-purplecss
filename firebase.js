@@ -2,7 +2,6 @@ const { initializeApp } = require("firebase/app");
 const { getFirestore } = require("firebase/firestore");
 const { doc, getDoc, setDoc, deleteDoc } = require("firebase/firestore");
 
-//const sessionStorage = window.sessionStorage;
 let db;
 
 module.exports.initFirebase = function() {
@@ -19,23 +18,11 @@ module.exports.initFirebase = function() {
 }
 
 module.exports.getDocument = async function(collection, docID) {
-	//const refID = `${collection}-${docID}`;
- 	//const cache = sessionStorage.getItem(refID);
-    const cache = false;
+	const docRef = doc(db, collection, docID);
+	const docSnap = await getDoc(docRef);
+	const data = docSnap.data();
 
-	if (cache) {
-		return new Promise((resolve, reject) => {
-			resolve(JSON.parse(cache));
-		});
-	} else {
-		const docRef = doc(db, collection, docID);
-		const docSnap = await getDoc(docRef);
-		const data = docSnap.data();
-
-		//sessionStorage.setItem(refID, JSON.stringify(data));
-
-		return data;
-	}
+	return data;
 }
 
 module.exports.setDocument = async function(collection, docID, data) {
