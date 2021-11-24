@@ -1,8 +1,18 @@
-<form>
-  <h1>Login</h1>
+<script>
+  let thisUser = "";
+  let thisPass = "";
+  function handleClick() {
+    let body = {thisUser, thisPass}
+    // Check if this is a valid user
 
-  <input type="email" name="email" placeholder="Email"/>
-  <input type="password" name="password" placeholder="Password"/>
+	}
+</script>
 
-  <button>Login</button>
-</form>
+
+<h1>Login</h1>
+
+
+<input type="email" name="email" placeholder="Email" bind:value={thisUser}/>
+<input type="password" name="password" placeholder="Password" bind:value={thisPass}/>
+
+<button on:click={handleClick}>Login</button>
