@@ -7,7 +7,7 @@
   let thisPass = "";
   let successLog = false;
   function handleClick() {
-    signUserIn(thisUser, thisPass).then((user) => {successLog = true})
+    signUserIn(thisUser, thisPass).then((user) => { if (user != null) successLog = true})
 	}
   
 </script>
