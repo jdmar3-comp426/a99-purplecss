@@ -4,6 +4,9 @@ import Index from './pages/Index.svelte';
 import Login from './pages/Login.svelte';
 import Signup from './pages/Signup.svelte';
 import Profile from './pages/Profile.svelte';
+import { initFirebase } from "./users.js"
+
+initFirebase();
 
 let title;
 let page;
