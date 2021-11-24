@@ -44,7 +44,6 @@ app.use("/api/:method/:collection/:docID", async (req, res) => {
     if (method == "get") {
         result = await getDocument(collection, docID);
     } else if (method == "post") {
-        console.log(req.body)
         const data = req.body.data;
         result = await setDocument(collection, docID, data);
     } else if (method == "patch") {
