@@ -9,10 +9,13 @@
 </script>
 
 
-<h1>Login</h1>
+<main>
+  <h1>Login</h1>
 
 
-<input type="email" name="email" placeholder="Email" bind:value={thisUser}/>
-<input type="password" name="password" placeholder="Password" bind:value={thisPass}/>
+  <input type="email" name="email" placeholder="Email" bind:value={thisUser}/>
+  <input type="password" name="password" placeholder="Password" bind:value={thisPass}/>
+  
+  <button on:click={handleClick}>Login</button>
 
-<button on:click={handleClick}>Login</button>
+</main>

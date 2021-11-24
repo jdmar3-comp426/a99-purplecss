@@ -1,3 +1,5 @@
-<p>
-  MOM
-</p>
+<main>
+  <p>
+    MOM
+  </p>
+</main>
