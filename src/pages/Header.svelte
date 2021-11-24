@@ -1,6 +1,9 @@
 <script>
-  function handleClick(e) {
+  import { getUser, logoutUser, loggedIn } from "../users";
 
+
+  function logUserOut() {
+    logoutUser().then((user) => false)
 	}
 </script>
 
@@ -60,11 +63,20 @@
 }
 </style>
 
-<div class="header">
-  <a href="#default" class="logo">CompanyLogo</a>
-  <div class="header-right">
-    <a class="active" href="#home">Home</a>
-    <a href="#contact">Contact</a>
-    <a href="#about">About</a>
+<main>
+  <div class="header">
+    <a class="logo" href="/app">Poopy Type</a>
+    <div class="header-right">
+      <a href="/app">Play</a>
+      {#if !$loggedIn}
+      <a href="/app/login">Login</a>
+      <a href="/app/signup">Signup</a>
+      {:else}
+      <a href="/app/profile">Profile</a>
+      <a href="/app" on:click={logUserOut}>Logout</a>
+      {/if}
+    
+    </div>
   </div>
-</div>
+  <!-- <button on:click={switchLogin}>POO</button> -->
+</main>

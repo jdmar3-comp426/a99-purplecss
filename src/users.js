@@ -1,5 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, createUserWithEmailAndPassword, signOut, signInWithEmailAndPassword } from "firebase/auth";
+import { writable } from 'svelte/store';
+export const loggedIn = writable(false);
 
 let auth;
 let user;
@@ -18,22 +20,46 @@ export function initFirebase() {
 }
 
 export async function createUser(email, password) {
-	const userCreds = await createUserWithEmailAndPassword(auth, email, password);
-    user = userCreds.user;
-
+    try {
+	    const userCreds = await createUserWithEmailAndPassword(auth, email, password);
+        user = userCreds.user;
+        loggedIn.update(() => true)
+    } catch(e) {
+        user = null
+        loggedIn.update(() => false)
+        alert('User already exists!')
+        return null;
+    }
 	return user;
 }
 
 export async function signUserIn(email, password) {
-	const userCreds = await signInWithEmailAndPassword(auth, email, password);
-    user = userCreds.user;
-
+    try {
+        const userCreds = await signInWithEmailAndPassword(auth, email, password);
+        user = userCreds.user;
+        loggedIn.update(() => true)
+    } catch(e) {
+        user = null
+        loggedIn.update(() => false)
+        alert('Invalid login')
+        return null
+    }
 	return user;
 }
 
+export function getUser() {
+    return user
+}
+
+
 export async function logoutUser() {
+    try {
+        await signOut();
+    } catch (e) {
+    }
     user = null;
-    await signOut();
+    loggedIn.update(() => false)
+    return user
 }
 
 export async function getUserData() {
@@ -41,16 +67,16 @@ export async function getUserData() {
         method: 'get',
         headers: { "Content-Type": "application/json" },
     });
-
     let data = await x.json();
-
     return data;
 }
+
+
 
 /// DEMO
 // NEED TO ADD THIS LINE AT TOP OF CODE
 
-// import { createUser, signUserIn, logoutUser, getUser } from "../users.js";
+// import { createUser, signUserIn, logoutUser, getUser, getUserData } from "../users.js";
 
 
 // To Create a user do:

@@ -1,21 +1,30 @@
 <script>
-  import { createUser } from "../users.js";
+  import { createUser, getUser, loggedIn } from "../users.js";
+  
+  if ($loggedIn) {
+    window.location.href = '/app/'
+  }
+
   let thisUser = "";
   let thisPass = "";
   let confPass = "";
+  let successLog = false;
   function handleClick() {
 
     if (!validateEmail(thisUser)) {
       alert("Invalid email!")
+      return
     }
     if (confPass !== thisPass) {
       alert("Passwords do not match!")
+      return
     } 
 
     if (thisPass.length <= 8) {
       alert("Passwords too short!")
+      return
     } 
-    
+
     createUser(thisUser, thisPass).then((user) => {
       fetch(`http://localhost:3000/api/post/users/${user.uid}`, {
         method: 'POST',
@@ -27,8 +36,11 @@
               'email': thisUser,
             }
           }),
-		  }).then((res) => console.log(res))
+      }).then((res) => {
+        successLog = true;
+      })
     });
+    
     
 	}
 
@@ -43,9 +55,14 @@
 <main>
   <h1>Sign Up</h1>
 
-  <input type="email" name="email" placeholder="Email" bind:value={thisUser}/>
-  <input type="password" name="password" placeholder="Password" bind:value={thisPass}/>
-  <input type="password" name="password" placeholder="Confirm" bind:value={confPass}/>
+  {#if successLog}
+    <p>Signed Up and Logged In!</p>
 
-  <button on:click={handleClick}>Sign Up</button>
+  {:else}
+    <input type="email" name="email" placeholder="Email" bind:value={thisUser}/>
+    <input type="password" name="password" placeholder="Password" bind:value={thisPass}/>
+    <input type="password" name="password" placeholder="Confirm" bind:value={confPass}/>
+    <button on:click={handleClick}>Sign Up</button>
+  {/if}
+
 </main>
