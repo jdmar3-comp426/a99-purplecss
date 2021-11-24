@@ -1,9 +1,10 @@
 <script>
-  import { createUser, signUserIn, logoutUser, getUser } from "../users.js";
+  import { createUser } from "../users.js";
   let thisUser = "";
   let thisPass = "";
   let confPass = "";
   function handleClick() {
+
     if (!validateEmail(thisUser)) {
       alert("Invalid email!")
     }
@@ -14,21 +15,21 @@
     if (thisPass.length <= 8) {
       alert("Passwords too short!")
     } 
-    // try to create an account
-
-
+    
     createUser(thisUser, thisPass).then((user) => {
       fetch(`http://localhost:3000/api/post/users/${user.uid}`, {
-        method: 'GET',
-        email: thisUser,
+        method: 'POST',
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(
+          {
+            'data': 
+            {
+              'email': thisUser,
+            }
+          }),
 		  }).then((res) => console.log(res))
-      // .then((res1) => {
-      //   res1.json.then((res2) => {
-      //     res2
-      //   })
-      // })
     });
-
+    
 	}
 
   function validateEmail(email) {
