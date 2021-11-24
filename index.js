@@ -1,6 +1,6 @@
 const express = require("express");
 const path = require('path');
-const { initFirebase, getDocument } = require("./firebase.js");
+const { initFirebase, getDocument, setDocument, updateDocument, deleteDocument } = require("./firebase.js");
 
 initFirebase();
 
@@ -30,11 +30,24 @@ app.get("/app/:path/", (req, res) => {
     res.sendFile(`public/${path}.html`, {root: __dirname })
 });
 
-app.get("/api/get/:collection/:docId", async (req, res) => {
-    const docID = req.params.docId;
+app.use("/api/:method/:collection/:docID", async (req, res) => {
+    const docID = req.params.docID;
     const collection = req.params.collection;
+    const method = req.params.method;
 
-    const data = await getDocument(collection, docID);
+    let result;
 
-    res.status(200).json(data);
+    if (method == "get") {
+        result = await getDocument(collection, docID);
+    } else if (method == "post") {
+        const data = req.body.data;
+        result = await setDocument(collection, docID, data);
+    } else if (method == "update") {
+        const data = req.body.data;
+        result = await updateDocument(collection, docID, data);
+    } else if (method == "delete") {
+        result = await deleteDocument(collection, docID);
+    }
+
+    res.status(200).json(result);
 });

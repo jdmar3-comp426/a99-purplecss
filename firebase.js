@@ -1,6 +1,6 @@
 const { initializeApp } = require("firebase/app");
 const { getFirestore } = require("firebase/firestore");
-const { doc, getDoc } = require("firebase/firestore");
+const { doc, getDoc, setDoc, deleteDoc } = require("firebase/firestore");
 
 //const sessionStorage = window.sessionStorage;
 let db;
@@ -19,7 +19,7 @@ module.exports.initFirebase = function() {
 }
 
 module.exports.getDocument = async function(collection, docID) {
-	const refID = `${collection}-${docID}`;
+	//const refID = `${collection}-${docID}`;
  	//const cache = sessionStorage.getItem(refID);
     const cache = false;
 
@@ -36,4 +36,25 @@ module.exports.getDocument = async function(collection, docID) {
 
 		return data;
 	}
+}
+
+module.exports.setDocument = async function(collection, docID, data) {
+	const docRef = doc(db, collection, docID);
+	await setDoc(docRef, data);
+
+	return data;
+}
+
+module.exports.updateDocument = async function(collection, docID, data) {
+	const docRef = doc(db, collection, docID);
+	await setDoc(docRef, data, { merge: true });
+
+	return data;
+}
+
+module.exports.deleteDocument = async function(collection, docID) {
+	const docRef = doc(db, collection, docID);
+	await deleteDoc(docRef);
+
+	return { 'collection': collection, 'docID': docID, 'deleted': true };
 }
