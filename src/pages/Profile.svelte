@@ -3,11 +3,13 @@
   if (getUser() == null) window.location.href = '/app/login'
   let thisUser = "";
   let avgWPM = "";
+  let numGames = "";
   let matchHistory = [];
   getUserData().then((data) => {
     thisUser = data.email
     avgWPM = data.avgWPM
     matchHistory = data.matchHistory
+    numGames = data.numGames
   })
   console.log(thisUser)
 </script>
@@ -22,6 +24,10 @@
 
   <h2>
     AVG Perfect Words Per Minute: {avgWPM}
+  </h2>
+
+  <h2>
+    Number of Games Played: {numGames}
   </h2>
 
   <h2>

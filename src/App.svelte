@@ -5,7 +5,7 @@
 	import Signup from './pages/Signup.svelte';
 	import Profile from './pages/Profile.svelte';
 	import Header from './pages/Header.svelte';
-	import { initFirebase, getUser, getUserData } from "./users.js"
+	import { initFirebase, getUser, getUserData, updateUserStats } from "./users.js"
 
 	initFirebase();
 
@@ -20,7 +20,7 @@
 	router.start()
 	
 	function clicker() {
-		getUserData().then((data) => console.log(data))
+		updateUserStats(169).then(() => null)
 	}
 </script>
 
