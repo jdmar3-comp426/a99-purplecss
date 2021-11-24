@@ -8,7 +8,10 @@ import Profile from './pages/Profile.svelte';
 let title;
 let page;
 
-router('/', () => { page = Index; title = ""; });
+router('/app/', () => { page = Index; title = ""; });
+router('/app/login', () => { page = Login; title = "Login"; });
+router('/app/signup', () => { page = Signup; title = "Sign Up"; });
+router('/app/profile', () => { page = Profile; title = "Profile"; });
 
 router.start()
 
@@ -17,5 +20,6 @@ router.start()
 <svelte:head>
 	<title>{title}</title>
 </svelte:head>
+
 
 <svelte:component this="{page}" />
