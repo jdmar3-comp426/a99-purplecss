@@ -20,7 +20,7 @@
 	router.start()
 	
 	function clicker() {
-		updateUserStats(169).then(() => null)
+		// updateUserStats(169).then(() => null)
 	}
 </script>
 

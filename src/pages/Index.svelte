@@ -1,5 +1,5 @@
 <script>
- import { updateUserStats } from '../users'
+ import { updateUserStats, getUser } from '../users'
 
 
 Array.prototype.random = function() {
@@ -18,6 +18,8 @@ let gameOver = false;
 let seconds = 0;
 let gameResult = "Try Again."
 let gameWin = false;
+let gameWinResult = ""
+let  wordsPerMin;
 function onType() {
   if (seconds == 0) {
     seconds = new Date().getTime() / 1000;
@@ -26,20 +28,22 @@ function onType() {
     if (dataBefore[i] != prompt[i]) {
       gameOver = true;
       gameResult = "Try Again"
+      gameWinResult = ""
       break;
     }
   }
 
   if (dataBefore == prompt) {
-    console.log("HI")
     // end game GAME WIN
-    gameOver = true;
-    gameWin = true;
-    gameResult = "Great Job! Play again."
     let timeElapsed = new Date().getTime() / 1000 - seconds;
     let words = prompt.split(" ").length;
-    let wordsPerMin = words / timeElapsed * 60
-    updateUserStats(wordsPerMin)
+    wordsPerMin = words / timeElapsed * 60
+    gameOver = true;
+    gameWin = true;
+    gameWinResult = `Great Job! You typed ${wordsPerMin} words per minute.`
+    gameResult = 'Play again.'
+    
+    if (getUser() != null) updateUserStats(wordsPerMin)
   }
   
 }
@@ -57,6 +61,7 @@ function tryAgain() {
 <main>
   {#if gameOver}
     <div id="failed-message">
+      <p>{gameWinResult}</p>
       <button on:click={tryAgain}>{gameResult}</button>
     </div>
   {:else}
