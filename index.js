@@ -1,15 +1,19 @@
 const express = require("express");
 const path = require('path');
+const bodyParser = require("body-parser");
+
 const { initFirebase, getDocument, setDocument, updateDocument, deleteDocument } = require("./firebase.js");
 
 initFirebase();
 
 var app = express();
 
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+// app.use(express.urlencoded({ extended: true }));
+// app.use(express.json());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'))
-
+x
 let HTTP_PORT = 3000;
 
 app.listen(HTTP_PORT, () => {
