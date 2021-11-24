@@ -21,7 +21,7 @@ app.listen(HTTP_PORT, () => {
 });
 
 app.get("/", (req, res) => {
-    res.redirect("/app/");
+    res.status(301).redirect("http://localhost:3000/app/");
 });
 
 app.get("/app/", (req, res) => {
