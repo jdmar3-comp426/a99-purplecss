@@ -36,10 +36,16 @@ export async function logoutUser() {
     await signOut();
 }
 
-export function getUser() {
-    return user;
-}
+export async function getUserData() {
+    let x = await fetch(`http://localhost:3000/api/get/users/${user.uid}`, {
+        method: 'get',
+        headers: { "Content-Type": "application/json" },
+    });
 
+    let data = await x.json();
+
+    return data;
+}
 
 /// DEMO
 // NEED TO ADD THIS LINE AT TOP OF CODE

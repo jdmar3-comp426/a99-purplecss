@@ -13,7 +13,7 @@ var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'))
-x
+
 let HTTP_PORT = 3000;
 
 app.listen(HTTP_PORT, () => {
@@ -44,9 +44,10 @@ app.use("/api/:method/:collection/:docID", async (req, res) => {
     if (method == "get") {
         result = await getDocument(collection, docID);
     } else if (method == "post") {
+        console.log(req.body)
         const data = req.body.data;
         result = await setDocument(collection, docID, data);
-    } else if (method == "update") {
+    } else if (method == "patch") {
         const data = req.body.data;
         result = await updateDocument(collection, docID, data);
     } else if (method == "delete") {
