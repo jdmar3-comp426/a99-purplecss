@@ -16,3 +16,9 @@ app.listen(HTTP_PORT, () => {
 app.get("/app/", (req, res, next) => {
     res.sendFile('public/index.html', {root: __dirname })
 });
+
+app.get("/app/:path/", (req, res, next) => {
+    const path = req.params.path;
+    
+    res.sendFile(`public/${path}.html`, {root: __dirname })
+});
