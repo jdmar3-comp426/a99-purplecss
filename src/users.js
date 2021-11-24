@@ -32,6 +32,7 @@ export async function signUserIn(email, password) {
 }
 
 export async function logoutUser() {
+    user = null;
     await signOut();
 }
 
