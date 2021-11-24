@@ -21,7 +21,7 @@
   </h2>
 
   <h2>
-    Average Words Per Minute: {avgWPM}
+    AVG Perfect Words Per Minute: {avgWPM}
   </h2>
 
   <h2>

@@ -6,7 +6,10 @@ Array.prototype.random = function() {
 let promptList = [
   "I like purple bananas.",
   "David is a monkey.",
-  "The big purple fox ate the small orange mouse."
+  "The big purple fox ate the small orange mouse.",
+  "oRaNgEs & pEaChEs",
+  "Abhay more like Uh-bye!"
+  
 ];
 
 let prompt = promptList.random();
@@ -22,6 +25,7 @@ function onType() {
       break;
     }
   }
+  console.log("dataBefore: " + dataBefore)
 }
 
 function tryAgain() {

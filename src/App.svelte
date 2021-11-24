@@ -12,7 +12,7 @@
 	let title;
 	let page;
 
-	router('/app/', () => { page = Index; title = ""; });
+	router('/app/', () => { page = Index; title = "Perfect Type"; });
 	router('/app/login', () => { page = Login; title = "Login"; });
 	router('/app/signup', () => { page = Signup; title = "Sign Up"; });
 	router('/app/profile', () => { page = Profile; title = "Profile"; });
