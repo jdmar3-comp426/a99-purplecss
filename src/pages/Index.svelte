@@ -9,7 +9,15 @@ Array.prototype.random = function() {
 let promptList = [
   "test. apples. are. green.",
   "I am a programmer. I am a programmer. I like food.",
-
+  "Benny was tired. Not the normal every day tired from a hard day o work. The exhausted type of tired where you're surprised your body can even move.",
+  "McDonald's is honestly underrated. And Bojangles is a scam.",
+  "Early waking times for high school should be abolished. That is not healthy at all.",
+  "Drinking water every day is good. However, drinking coffee every day is even better.",
+  "Washing your hands after using the restroom. This is a good skill to have.",
+  "Sleeping with your eyes opened is the new trend. I think. I am a little tired tbh.",
+  "I like waffles. I like sausages. I also like ketchup on eggs.",
+  "minecraft Is a legendary game. I. Love. Minecraft.",
+  "Driving. wIth. yoUr. eyeS. closEd. IS. DANGEROUS."
 ];
 
 
