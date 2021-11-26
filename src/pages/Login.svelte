@@ -15,12 +15,17 @@
     signUserIn(thisUser, thisPass).then((user) => {
       if (user != null) {
         successLog = true;
+        
+        setTimeout(() => {
+            window.location.href = '/';
+          }, 1000);
       }
     });
 	}
   
 </script>
 
+{#if getUser() == null}
 <main>
   <h1>login</h1>
   
@@ -43,3 +48,4 @@
   {/if}
 
 </main>
+{/if}

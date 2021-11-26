@@ -1,6 +1,4 @@
 <script>
-import { get } from "svelte/store";
-
   import { getUser, logoutUser } from "../users";
 
 
@@ -49,7 +47,7 @@ import { get } from "svelte/store";
   </a>
   <div class="header-right">
     <a href="/app/play" class="clickable">play</a>
-    {#if getUser() != null}
+    {#if getUser() == null}
       <a href="/app/login" class="clickable">login</a>
       <a href="/app/signup" class="clickable">signup</a>
     {:else}

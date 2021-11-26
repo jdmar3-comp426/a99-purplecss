@@ -1,8 +1,8 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, createUserWithEmailAndPassword, signOut, signInWithEmailAndPassword } from "firebase/auth";
+const sessionStorage = window.sessionStorage;
 
 let auth;
-let user;
 
 export function initFirebase() {
 	const firebaseApp = initializeApp({
@@ -20,29 +20,38 @@ export function initFirebase() {
 export async function createUser(email, password) {
     try {
 	    const userCreds = await createUserWithEmailAndPassword(auth, email, password);
-        user = userCreds.user;
+        sessionStorage.setItem("user", JSON.stringify(userCreds.user));
+        return userCreds.user;
     } catch(e) {
-        user = null
         alert('User already exists!')
         return null;
     }
-	return user;
 }
 
 export async function signUserIn(email, password) {
     try {
         const userCreds = await signInWithEmailAndPassword(auth, email, password);
-        user = userCreds.user;
+        sessionStorage.setItem("user", JSON.stringify(userCreds.user));
+        return userCreds.user;
     } catch(e) {
-        user = null
         alert('Invalid login')
         return null
     }
-	return user;
 }
 
 export function getUser() {
-    return user
+    let sUser = sessionStorage.getItem("user");
+
+    if (sUser == null) {
+        return null;
+    }
+
+    if (sUser.length > 0) {
+        return JSON.parse(sUser);
+    }
+
+    return null;
+
 }
 
 
@@ -51,13 +60,14 @@ export async function logoutUser() {
         await signOut();
     } catch (e) {
     }
-    user = null;
-    return user
+    sessionStorage.setItem("user", "");
+
+    window.location.href = "/"
 }
 
 export async function getUserData() {
     try {
-        let x = await fetch(`http://localhost:3000/api/get/users/${user.uid}`, {
+        let x = await fetch(`http://localhost:3000/api/get/users/${getUser().uid}`, {
             method: 'get',
             headers: { "Content-Type": "application/json" },
         });
@@ -99,7 +109,7 @@ export async function updateUserStats(newWPM) {
         }
         avgWPM = sum / matchHistory.length
 
-        fetch(`http://localhost:3000/api/patch/users/${user.uid}`, {
+        fetch(`http://localhost:3000/api/patch/users/${getUser().uid}`, {
             method: 'PATCH',
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(
@@ -115,33 +125,3 @@ export async function updateUserStats(newWPM) {
         })
     })
 }
-
-/// DEMO
-// NEED TO ADD THIS LINE AT TOP OF CODE
-
-// import { createUser, signUserIn, logoutUser, getUser, getUserData } from "../users.js";
-
-
-// To Create a user do:
-// createUser({user}, {password}).then((user) => {
-//      Do more code here
-// });
-
-// Automatically signs then in, so redirect back to the main page
-// Then you need to make a doc in the 'users' collection. Name the doc to 'user.uid' and store their username / email in it. Do this inside of the { }
-// Then once you made this doc you can just pull the doc data anywhere you need it.
-
-
-// To sign a user in do:
-// signUserIn({email}, {password}).then((user) => {
-//      Do more code here
-// });
-
-
-// To log user out do:
-// logoutUser();
-
-
-
-/// To get the user anywhere in the code do:
-// const user = getUser();

@@ -1,6 +1,12 @@
 <script>
   import { getUserData, getUser } from "../users";
-  if (getUser() == null) window.location.href = '/app/login'
+
+  
+  if (getUser() == null) {
+    window.location.href = '/'
+  }
+
+
   let thisUser = "";
   let avgWPM = "";
   let numGames = "";
@@ -8,6 +14,7 @@
   let matchHistoryTime = []
   getUserData().then((data) => {
     thisUser = getUser().email
+    console.log(getUser())
     avgWPM = data.avgWPM
     matchHistory = data.matchHistory
     numGames = data.numGames
@@ -26,6 +33,9 @@
     
   }
 </style>
+
+{#if getUser() != null}
+
 <main>
   <h1>
     profile
@@ -72,3 +82,5 @@
   </div>
 
 </main>
+
+{/if}
