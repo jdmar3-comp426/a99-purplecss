@@ -1,15 +1,29 @@
 <script>
   import { createUser, getUser } from "../users";
   import { inputType } from "../common";
-  
+
+  function exitToMain() {
+    setTimeout(() => {
+      window.location.href = '/';
+    }, t00);
+  }
+
   if (getUser() != null) {
     window.location.href = '/'
   }
+  
 
-  let thisUser = "";
-  let thisPass = "";
-  let confPass = "";
+  let thisUser, thisPass, confPass = "";
   let successLog = false;
+
+  const defaultDataInitialization = {
+    'email': thisUser,
+    'numGames': 0,
+    'avgWPM': 0,
+    'matchHistory': [],
+    'matchHistoryTime': [],
+  }
+
   function handleClick() {
 
     if (!validateEmail(thisUser)) {
@@ -32,22 +46,12 @@
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(
           {
-            'data': 
-            {
-              'email': thisUser,
-              'numGames': 0,
-              'avgWPM': 0,
-              'matchHistory': [],
-              'matchHistoryTime': [],
-            }
+            'data': defaultDataInitialization,
           }),
-      }).then((res) => {
+      }).then(() => {
         if (user != null) {
           successLog = true;
-
-          setTimeout(() => {
-            window.location.href = '/';
-          }, 1000);
+          exitToMain()
         }    
         })
     });
@@ -66,7 +70,9 @@
   <h1>sign up</h1>
 
   {#if successLog}
-    <p>signed up and logged in!</p>
+    <p>
+      signed up and logged in! redirecting to main...
+    </p>
   {:else}
     <div class="input-container">
       <label for="email">email</label>
