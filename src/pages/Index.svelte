@@ -1,0 +1,100 @@
+<script>
+ import { updateUserStats, getUser } from '../users'
+
+
+Array.prototype.random = function() {
+  return this[Math.floor((Math.random()*this.length))];
+}
+
+let promptList = [
+  "I like purple bananas.",
+  "David is a monkey.",
+  "The big purple fox ate the small orange mouse.",
+  "Kappa Theta Pi stands for the love for technology",
+  "Hey diddle diddle, The cat and the fiddle, The cow jumped over the moon. The little dog laughed to see such sport, And the dish ran away with the spoon.",
+  "Hickory Dickory Dock. The mouse ran up the clock. The clock struck one. The mouse ran down. Hickory Dickory Dock",
+  "I’m a little teapot, short and stout. Here is my handle, here is my spout.",
+  "Mary had a little lamb, Little lamb, little lamb. Mary had a little lamb, Its fleece was white as snow.",
+  "Ring around the rosie, a pocket full of posies, atishoo, atishoo, we all fall down!",
+  "Rock a bye baby, on the tree top, When the wind blows the cradle will rock, When the bough breaks the cradle will fall, And down will come baby, cradle and all.",
+  "Row, row, row your boat gently down the stream, merrily, merrily, merrily, merrily, life is but a dream",
+  "Somebody once told me the world is gonna roll me, I ain't the sharpest tool in the shed. She was looking kind of dumb with her finger and her thumb, in the shape of an L on her forehead"
+];
+
+let prompt = promptList.random();
+let dataBefore;
+let gameOver = false;
+let seconds = 0;
+let gameResult = "Try Again."
+let gameWin = false;
+let gameWinResult = ""
+let  wordsPerMin;
+function onType() {
+  if (seconds == 0) {
+    seconds = new Date().getTime() / 1000;
+  }
+  for (let i in dataBefore) {
+    if (dataBefore[i] != prompt[i]) {
+      gameOver = true;
+      gameResult = "Try Again"
+      gameWinResult = ""
+      break;
+    }
+  }
+
+  if (dataBefore == prompt) {
+    // end game GAME WIN
+    let timeElapsed = new Date().getTime() / 1000 - seconds;
+    let words = prompt.split(" ").length;
+    wordsPerMin = words / timeElapsed * 60
+    gameOver = true;
+    gameWin = true;
+    gameWinResult = `Great Job! You typed ${wordsPerMin} words per minute.`
+    gameResult = 'Play again.'
+    
+    if (getUser() != null) updateUserStats(wordsPerMin)
+  }
+  
+}
+
+function tryAgain() {
+  gameOver = false;
+  gameWin = false
+  gameResult = ""
+  seconds = 0;
+  dataBefore = "";
+  prompt = promptList.random();
+}
+</script>
+
+<main>
+  {#if gameOver}
+    <div id="failed-message">
+      <p>{gameWinResult}</p>
+      <button on:click={tryAgain}>{gameResult}</button>
+    </div>
+  {:else}
+    <div id="game-container">
+      <div id="prompt" {dataBefore}>{prompt}</div>
+      <input type="text" name="user-entry" placeholder="Start typing here" bind:value={dataBefore} on:keyup={onType} />
+    </div>
+  {/if}
+
+</main>
+
+<style>
+  #prompt::before {
+		position: absolute;
+		top: 0;
+		left: 0;
+		overflow: hidden;
+		padding: 0 0;
+		max-width: 100%;
+	  color: green;
+		content: attr(dataBefore);
+	}
+
+  #game-container {
+    position: relative;
+  }
+</style>
