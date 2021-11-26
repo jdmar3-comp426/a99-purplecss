@@ -24,7 +24,6 @@
   text-align: center;
   text-decoration: none;
   font-size: 1.7em;
-  color: black;
   font-family: 'Times New Roman', Times, serif;
   font-weight: bold;
   margin: 20px;
@@ -34,20 +33,9 @@
   font-weight: bold;
   text-align: left;
   font-size: 7em;
-  color: black !important;
+  color: #404040 !important;
   text-decoration: none !important;
 }
-
-.logo:hover {
-
-  text-decoration: none !important;
-}
-
-.clickable:hover {
-  color: grey;
-  transition: color 100ms;
-}
-
 </style>
 
 

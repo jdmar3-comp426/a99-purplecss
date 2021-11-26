@@ -1,11 +1,14 @@
 <script>
+	import { initFirebase } from "./users"
 	import router from 'page';
+	
+	import Header from './pages/Header.svelte';
+	
 	import Index from './pages/Index.svelte';
 	import Login from './pages/Login.svelte';
 	import Signup from './pages/Signup.svelte';
 	import Profile from './pages/Profile.svelte';
-	import Header from './pages/Header.svelte';
-	import { initFirebase } from "./users"
+	import Rules from './pages/Rules.svelte';
 
 	initFirebase();
 
@@ -13,15 +16,12 @@
 	let page;
 
 	router('/app/', () => { page = Index; title = "Perfect Type"; });
-	router('/app/login', () => { page = Login; title = "Login"; });
-	router('/app/signup', () => { page = Signup; title = "Sign Up"; });
-	router('/app/profile', () => { page = Profile; title = "Profile"; });
+	router('/app/login', () => { page = Login; title = "Perfect Type - Login"; });
+	router('/app/signup', () => { page = Signup; title = "Perfect Type - Sign Up"; });
+	router('/app/profile', () => { page = Profile; title = "Perfect Type - Profile"; });
+	router('/app/rules', () => { page = Rules; title = "Perfect Type - Rules"; });
 
 	router.start()
-	
-	function clicker() {
-		// updateUserStats(169).then(() => null)
-	}
 </script>
 
 <style>
@@ -41,6 +41,7 @@
 		top: 50%;
 		transform: translateY(-50%);
 		overflow: hidden;
+		color: gray;
 	}
 
 	:global(body) {
@@ -107,6 +108,16 @@
 	:global(button:hover) {
 		background-color: #472100;
 		color: var(--main-bg-color);
+	}
+
+	:global(a) {
+		color: gray !important;
+    	text-decoration: underline;
+		transition: color 200ms;
+	}
+
+	:global(a:hover) {
+		color: black !important;
 	}
 
 </style>

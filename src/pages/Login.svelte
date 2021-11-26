@@ -23,11 +23,11 @@
     <div id="form-container">
       <div class="input-container">
         <label for="email">email</label>
-        <input id="email" type="email" name="email" bind:value={thisUser} on:keyup="{(e) => inputType(e, handleClick)}"/>
+        <input id="email" type="email" name="email" bind:value={thisUser} on:input="{(e) => inputType(e, handleClick)}"/>
       </div>
       <div class="input-container">
         <label for="password">password</label>
-        <input id="password" type="password" name="password" bind:value={thisPass} on:keyup="{(e) => inputType(e, handleClick)}"/>
+        <input id="password" type="password" name="password" bind:value={thisPass} on:input="{(e) => inputType(e, handleClick)}"/>
       </div>
     </div>
     <br>

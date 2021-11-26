@@ -233,8 +233,14 @@ function tryAgain() {
     cursor: default;
   }
 
-  main {
-    padding: 0px;
+  #rules {
+    position: absolute;
+    bottom: 20px;
+    color: gray !important;
+    font-size: 1.5em;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 200;
   }
 
 </style>
@@ -256,3 +262,7 @@ function tryAgain() {
 </main>
 
 <input bind:this="{inputBox}" style="z-index: {typeZIndex};" type="text" name="user-entry" placeholder="start typing here" bind:value={dataBefore} on:keyup={onType} autofocus onpaste="return false;" autocomplete="off">
+
+<div id="rules">
+  see the rules and how to play <a href="/app/rules">here</a>.
+</div>
