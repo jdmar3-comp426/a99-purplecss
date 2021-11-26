@@ -7,8 +7,8 @@ Array.prototype.random = function() {
 }
 
 let promptList = [
-  //"test. apples. are. green.",
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin risus nisl, tempor non mi a, convallis porta eros. Quisque at ligula ac dui aliquam vulputate eget in nunc. Ut felis orci, pretium sed metus in, molestie gravida mi. Praesent nec lacinia metus. In hac habitasse platea dictumst. Duis mollis lacinia eros, vel feugiat magna mattis sit amet. Sed aliquet massa ac libero dictum imperdiet. Nam eleifend, massa eu dictum sodales, sem diam lobortis nulla, ut dapibus massa quam in arcu. In pulvinar metus vel nibh luctus, quis convallis massa posuere. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nullam pellentesque purus est, eget hendrerit nisl elementum sed. Aenean ullamcorper finibus commodo. Nunc fermentum sed urna sit amet dapibus. "
+  "test. apples. are. green.",
+  // "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin risus nisl, tempor non mi a, convallis porta eros. Quisque at ligula ac dui aliquam vulputate eget in nunc. Ut felis orci, pretium sed metus in, molestie gravida mi. Praesent nec lacinia metus. In hac habitasse platea dictumst. Duis mollis lacinia eros, vel feugiat magna mattis sit amet. Sed aliquet massa ac libero dictum imperdiet. Nam eleifend, massa eu dictum sodales, sem diam lobortis nulla, ut dapibus massa quam in arcu. In pulvinar metus vel nibh luctus, quis convallis massa posuere. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nullam pellentesque purus est, eget hendrerit nisl elementum sed. Aenean ullamcorper finibus commodo. Nunc fermentum sed urna sit amet dapibus. "
   // "I like purple$bananas.",
   // "David is a$monkey.",
   // "The big purple fox ate the small$orange mouse.",
@@ -23,11 +23,13 @@ let promptList = [
   // "Somebody once told me the world is gonna roll me, I ain't the sharpest tool in the shed. She was looking kind of dumb with her finger and her thumb, in the shape of an L on her forehead"
 ];
 
+
 for (let i=0;i<promptList.length;i++) {
   promptList[i] = promptList[i].replaceAll(". ", ".$");
 }
 
 let prompt = promptList.random();
+const numWords = (prompt.split('.').join(' ').split(' ').join('$').split('$').filter(e => e)).length
 let oPrompt = prompt.split("$")[0] + "$" + prompt;
 let dataBefore = "";
 let gameOver = false;
@@ -57,6 +59,7 @@ function onType(e) {
   let dollar = false;
 
   if (prompt[dataBefore.length] == "$") {
+
     prompt = prompt.substring(prompt.indexOf("$")-1).replace("$", "");
     dataBefore = dataBefore.substring(dataBefore.length-1);
     dollar = true;
@@ -79,15 +82,16 @@ function onType(e) {
   if (dataBefore == prompt) {
     // end game GAME WIN
     let timeElapsed = new Date().getTime() / 1000 - seconds;
-    let words = prompt.split(" ").length;
-    let wordsPerMin = words / timeElapsed * 60
+    let wordsPerMin = numWords / timeElapsed * 60
+    if (getUser() != null) {
+      updateUserStats(wordsPerMin)
+    }
     gameOver = true;
     gameWin = true;
     messageColor = "red";
     gameWinResult = `u won !? &#128550; you typed ${wordsPerMin} words per minute.`
     gameResult = 'play again'
     typeZIndex = -1;
-    if (getUser() != null) updateUserStats(wordsPerMin)
   }
 
   if (dollar) {

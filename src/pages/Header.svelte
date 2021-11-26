@@ -52,7 +52,7 @@
       <a href="/app/signup" class="clickable">signup</a>
     {:else}
       <a href="/app/profile" class="clickable">profile</a>
-      <a href="/app" on:click={logUserOut}>logout</a>
+      <a href="/app"class="clickable"  on:click={logUserOut}>logout</a>
     {/if}
   </div>
 </div>

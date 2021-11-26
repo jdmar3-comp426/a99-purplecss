@@ -7,7 +7,7 @@
   let matchHistory = [];
   let matchHistoryTime = []
   getUserData().then((data) => {
-    thisUser = data.email
+    thisUser = getUser().email
     avgWPM = data.avgWPM
     matchHistory = data.matchHistory
     numGames = data.numGames
