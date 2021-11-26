@@ -97,7 +97,7 @@
 		border: 2px solid #472100;
 		display: inline-block;
 		cursor: pointer;
-		color: black;
+		color: gray;
 		font-size: 1.2em;
 		padding: 16px 32px;
 		text-decoration: none;
@@ -106,7 +106,7 @@
 
 	:global(button:hover) {
 		background-color: #472100;
-		color: white;
+		color: var(--main-bg-color);
 	}
 
 </style>

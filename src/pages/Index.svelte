@@ -7,7 +7,7 @@ Array.prototype.random = function() {
 }
 
 let promptList = [
-  "I like poop. I like green. I am purple."
+  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin risus nisl, tempor non mi a, convallis porta eros. Quisque at ligula ac dui aliquam vulputate eget in nunc. Ut felis orci, pretium sed metus in, molestie gravida mi. Praesent nec lacinia metus. In hac habitasse platea dictumst. Duis mollis lacinia eros, vel feugiat magna mattis sit amet. Sed aliquet massa ac libero dictum imperdiet. Nam eleifend, massa eu dictum sodales, sem diam lobortis nulla, ut dapibus massa quam in arcu. In pulvinar metus vel nibh luctus, quis convallis massa posuere. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nullam pellentesque purus est, eget hendrerit nisl elementum sed. Aenean ullamcorper finibus commodo. Nunc fermentum sed urna sit amet dapibus. "
   // "I like purple$bananas.",
   // "David is a$monkey.",
   // "The big purple fox ate the small$orange mouse.",
@@ -22,11 +22,9 @@ let promptList = [
   // "Somebody once told me the world is gonna roll me, I ain't the sharpest tool in the shed. She was looking kind of dumb with her finger and her thumb, in the shape of an L on her forehead"
 ];
 
-
 for (let i=0;i<promptList.length;i++) {
   promptList[i] = promptList[i].replaceAll(". ", ".$");
 }
-
 
 let prompt = promptList.random();
 let dataBefore = "";
@@ -35,7 +33,7 @@ let seconds = 0;
 let gameResult = "";
 let gameWin = false;
 let gameWinResult = "";
-let  wordsPerMin;
+let wordsPerMin;
 let messageColor = "green";
 let typeZIndex = 10;
 let inputBox;
@@ -165,6 +163,19 @@ function tryAgain() {
 </script>
 
 <style>
+  #occlusion {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(transparent, var(--main-bg-color));
+    position: absolute;
+    top: 0;
+  }
+
+  #prompt {
+    height: 100%;
+    overflow: hidden;
+  }
+
   #prompt::before {
 		position: absolute;
 		top: 0;
@@ -179,7 +190,8 @@ function tryAgain() {
   #game-container {
     position: relative;
     width: 100%;
-    height: 100%;
+    height: 100px;
+    overflow: hidden;
   }
 
   .typing {
@@ -217,6 +229,7 @@ function tryAgain() {
     {:else}
       <div id="game-container">
         <div id="prompt" class="noselect" {dataBefore}>{@html prompt.replaceAll("$", "<br>")}</div>
+        <div id="occlusion"></div>
       </div>
     {/if}
   </div>
