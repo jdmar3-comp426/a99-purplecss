@@ -64,7 +64,7 @@ export async function logoutUser() {
 
 export async function getUserData() {
     try {
-        let x = await fetch(`http://localhost:3000/api/get/users/${user.uid}`, {
+        let x = await fetch(`http://localhost:3000/app/get/users/${user.uid}`, {
             method: 'get',
             headers: { "Content-Type": "application/json" },
         });
@@ -106,7 +106,7 @@ export async function updateUserStats(newWPM) {
         }
         avgWPM = sum / matchHistory.length
 
-        fetch(`http://localhost:3000/api/patch/users/${user.uid}`, {
+        fetch(`http://localhost:3000/app/patch/users/${user.uid}`, {
             method: 'PATCH',
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(

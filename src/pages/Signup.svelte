@@ -27,7 +27,7 @@
     } 
 
     createUser(thisUser, thisPass).then((user) => {
-      fetch(`http://localhost:3000/api/post/users/${user.uid}`, {
+      fetch(`http://localhost:3000/app/post/users/${user.uid}`, {
         method: 'POST',
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(
