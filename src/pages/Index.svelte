@@ -7,7 +7,8 @@ Array.prototype.random = function() {
 }
 
 let promptList = [
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin risus nisl, tempor non mi a, convallis porta eros. Quisque at ligula ac dui aliquam vulputate eget in nunc. Ut felis orci, pretium sed metus in, molestie gravida mi. Praesent nec lacinia metus. In hac habitasse platea dictumst. Duis mollis lacinia eros, vel feugiat magna mattis sit amet. Sed aliquet massa ac libero dictum imperdiet. Nam eleifend, massa eu dictum sodales, sem diam lobortis nulla, ut dapibus massa quam in arcu. In pulvinar metus vel nibh luctus, quis convallis massa posuere. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nullam pellentesque purus est, eget hendrerit nisl elementum sed. Aenean ullamcorper finibus commodo. Nunc fermentum sed urna sit amet dapibus. "
+  "test. apples. are. green.",
+  //"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin risus nisl, tempor non mi a, convallis porta eros. Quisque at ligula ac dui aliquam vulputate eget in nunc. Ut felis orci, pretium sed metus in, molestie gravida mi. Praesent nec lacinia metus. In hac habitasse platea dictumst. Duis mollis lacinia eros, vel feugiat magna mattis sit amet. Sed aliquet massa ac libero dictum imperdiet. Nam eleifend, massa eu dictum sodales, sem diam lobortis nulla, ut dapibus massa quam in arcu. In pulvinar metus vel nibh luctus, quis convallis massa posuere. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nullam pellentesque purus est, eget hendrerit nisl elementum sed. Aenean ullamcorper finibus commodo. Nunc fermentum sed urna sit amet dapibus. "
   // "I like purple$bananas.",
   // "David is a$monkey.",
   // "The big purple fox ate the small$orange mouse.",
@@ -27,6 +28,7 @@ for (let i=0;i<promptList.length;i++) {
 }
 
 let prompt = promptList.random();
+let oPrompt = prompt.split("$")[0] + "$" + prompt;
 let dataBefore = "";
 let gameOver = false;
 let seconds = 0;
@@ -37,6 +39,9 @@ let wordsPerMin;
 let messageColor = "green";
 let typeZIndex = 10;
 let inputBox;
+let promptTop = -50;
+let promptLineHeight = 50;
+let lineCount = 0;
 
 function onType(e) {
   if (e.keyCode === 13) {
@@ -55,6 +60,8 @@ function onType(e) {
     prompt = prompt.substring(prompt.indexOf("$")-1).replace("$", "");
     dataBefore = dataBefore.substring(dataBefore.length-1);
     dollar = true;
+    promptTop -= promptLineHeight;
+    lineCount++;
   }
 
   for (let i in dataBefore) {
@@ -86,6 +93,12 @@ function onType(e) {
   if (dollar) {
     prompt = prompt.substring(1);
     dataBefore = dataBefore.substring(1);
+
+    let tempOprompt = "";
+    for (let i=0;i<lineCount;i++) {
+      tempOprompt += oPrompt.split("$")[i] + "$";
+    }
+    oPrompt = prompt.split("$")[0] + "$" + tempOprompt + prompt;
   }
   
 }
@@ -97,8 +110,11 @@ function tryAgain() {
   seconds = 0;
   dataBefore = "";
   prompt = promptList.random();
+  oPrompt = prompt.split("$")[0] + "$" + prompt;
   typeZIndex = 10;
   inputBox.focus();
+  promptTop = -50;
+  lineCount = 0;
 }
 
 // Register onpaste on inputs and textareas in browsers that don't
@@ -172,25 +188,29 @@ function tryAgain() {
   }
 
   #prompt {
-    height: 100%;
-    overflow: hidden;
+    position: relative;
+    transition: top 100ms;
+		top: var(--top);
+		line-height: var(--line-height);
   }
 
   #prompt::before {
 		position: absolute;
-		top: 0;
+		top: calc(-1 * var(--top));
+		line-height: var(--line-height);
 		overflow: hidden;
 		padding: 0 0;
 		max-width: 100%;
 	  color: #800000;
 		content: attr(dataBefore);
     font-weight: bold;
+    text-align: center;
 	}
 
   #game-container {
     position: relative;
     width: 100%;
-    height: 100px;
+    height: 150px;
     overflow: hidden;
   }
 
@@ -228,7 +248,7 @@ function tryAgain() {
       </div>
     {:else}
       <div id="game-container">
-        <div id="prompt" class="noselect" {dataBefore}>{@html prompt.replaceAll("$", "<br>")}</div>
+        <div id="prompt" class="noselect" style="--line-height:{promptLineHeight}px;--top:{promptTop}px;" {dataBefore}>{@html oPrompt.replaceAll("$", "<br>")}</div>
         <div id="occlusion"></div>
       </div>
     {/if}
