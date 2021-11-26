@@ -24,9 +24,28 @@
 	}
 </script>
 
+<style>
+	:global(:root) {
+		--main-bg-color: #F4F1E2;
+	}
+	:global(main) {
+		background-color: var(--main-bg-color);
+		overflow:scroll;
+		background-size: cover;
+		background-position: center;
+		background-attachment: fixed;
+		height: 100%;
+		width: 100%;
+	}
+	:global(body) {
+		padding: 0px;
+	}
+</style>
+
 <svelte:head>
 	<title>{title}</title>
 </svelte:head>
+
 
 <Header />
 <svelte:component this="{page}" />
