@@ -7,9 +7,10 @@ Array.prototype.random = function() {
 }
 
 let promptList = [
-  "I like purple bananas.",
-  // "David is a monkey.",
-  // "The big purple fox ate the small orange mouse.",
+  "I like poop. I like green. I am purple."
+  // "I like purple$bananas.",
+  // "David is a$monkey.",
+  // "The big purple fox ate the small$orange mouse.",
   // "Kappa Theta Pi stands for the love for technology",
   // "Hey diddle diddle, The cat and the fiddle, The cow jumped over the moon. The little dog laughed to see such sport, And the dish ran away with the spoon.",
   // "Hickory Dickory Dock. The mouse ran up the clock. The clock struck one. The mouse ran down. Hickory Dickory Dock",
@@ -21,23 +22,39 @@ let promptList = [
   // "Somebody once told me the world is gonna roll me, I ain't the sharpest tool in the shed. She was looking kind of dumb with her finger and her thumb, in the shape of an L on her forehead"
 ];
 
+
+for (let i=0;i<promptList.length;i++) {
+  promptList[i] = promptList[i].replaceAll(". ", ".$");
+}
+
+
 let prompt = promptList.random();
 let dataBefore;
 let gameOver = false;
 let seconds = 0;
-let gameResult = "Try Again."
+let gameResult = ""
 let gameWin = false;
 let gameWinResult = ""
 let  wordsPerMin;
+
 function onType() {
   if (seconds == 0) {
     seconds = new Date().getTime() / 1000;
   }
+
+  let dollar = false;
+
+  if (prompt[dataBefore.length] == "$") {
+    prompt = prompt.substring(prompt.indexOf("$")-1).replace("$", "");
+    dataBefore = dataBefore.substring(dataBefore.length-1);
+    dollar = true;
+  }
+
   for (let i in dataBefore) {
     if (dataBefore[i] != prompt[i]) {
       gameOver = true;
-      gameResult = "Try Again"
-      gameWinResult = ""
+      gameResult = "try again"
+      gameWinResult = "u missed something :)"
       break;
     }
   }
@@ -49,10 +66,15 @@ function onType() {
     wordsPerMin = words / timeElapsed * 60
     gameOver = true;
     gameWin = true;
-    gameWinResult = `Great Job! You typed ${wordsPerMin} words per minute.`
-    gameResult = 'Play again.'
+    gameWinResult = `great job! you typed ${wordsPerMin} words per minute.`
+    gameResult = 'play again'
     
     if (getUser() != null) updateUserStats(wordsPerMin)
+  }
+
+  if (dollar) {
+    prompt = prompt.substring(1);
+    dataBefore = dataBefore.substring(1);
   }
   
 }
@@ -131,43 +153,61 @@ function tryAgain() {
   #prompt::before {
 		position: absolute;
 		top: 0;
-		left: 0;
 		overflow: hidden;
 		padding: 0 0;
 		max-width: 100%;
-	  color: green;
+	  color: #800000;
 		content: attr(dataBefore);
+    font-weight: bold;
 	}
 
   #game-container {
     position: relative;
+    width: 100%;
+    height: 100%;
   }
+
   .typing {
     font-size: 2em;
     font-family: 'Courier New', Courier, monospace;
+    width: 100%;
+    height: 100%;
   }
 
   input { 
     margin-top: 25px;
     width: 60%;
+    opacity: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    cursor: default;
   }
+
   main {
     padding: 0px;
   }
+
 </style>
 
 <main>
   <div class="typing">
     {#if gameOver}
-      <div id="failed-message">
+      <div id="message">
         <p>{gameWinResult}</p>
         <button on:click={tryAgain}>{gameResult}</button>
       </div>
     {:else}
       <div id="game-container">
-        <div id="prompt" {dataBefore}>{prompt}</div>
-        <input type="text" name="user-entry" placeholder="start typing here" bind:value={dataBefore} on:keyup={onType} onpaste="return false;" autocomplete="off">
+        <div id="prompt" class="noselect" {dataBefore}>{@html prompt.replaceAll("$", "<br>")}</div>
       </div>
     {/if}
   </div>
 </main>
+
+{#if !gameOver}
+<input type="text" name="user-entry" placeholder="start typing here" bind:value={dataBefore} on:keyup={onType} autofocus onpaste="return false;" autocomplete="off">
+{/if}

@@ -28,31 +28,50 @@
 	:global(:root) {
 		--main-bg-color: #F4F1E2;
 	}
+
 	:global(main) {
-		background-color: var(--main-bg-color);
 		overflow:scroll;
 		background-size: cover;
 		background-position: center;
 		background-attachment: fixed;
-		height: 100%;
 		width: 100%;
 		text-align: center;
+		overflow: hidden;
+		max-width: 2000px;
+		position: relative;
+		top: 50%;
+		transform: translateY(-50%);
 	}
+
 	:global(body) {
 		font-family: 'Times New Roman', Times, serif;
 		padding: 0px;
+		background-color: var(--main-bg-color);
 	}
 
 	:global(input) {
 		width: 250px;
+		background: transparent;
+		border: none;
+		border-bottom: solid black 2px;
+		outline: none;
 	}
+
+	:global(.noselect) {
+		-webkit-touch-callout: none; /* iOS Safari */
+		-webkit-user-select: none; /* Safari */
+		-khtml-user-select: none; /* Konqueror HTML */
+		-moz-user-select: none; /* Old versions of Firefox */
+		-ms-user-select: none; /* Internet Explorer/Edge */
+		user-select: none; /* Non-prefixed version, currently
+									supported by Chrome, Edge, Opera and Firefox */
+	}
+
 </style>
 
 <svelte:head>
 	<title>{title}</title>
 </svelte:head>
 
-
 <Header />
 <svelte:component this="{page}" />
-<button on:click={clicker}></button>
