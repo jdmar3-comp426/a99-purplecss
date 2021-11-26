@@ -8,17 +8,17 @@ Array.prototype.random = function() {
 
 let promptList = [
   "I like purple bananas.",
-  "David is a monkey.",
-  "The big purple fox ate the small orange mouse.",
-  "Kappa Theta Pi stands for the love for technology",
-  "Hey diddle diddle, The cat and the fiddle, The cow jumped over the moon. The little dog laughed to see such sport, And the dish ran away with the spoon.",
-  "Hickory Dickory Dock. The mouse ran up the clock. The clock struck one. The mouse ran down. Hickory Dickory Dock",
-  "I’m a little teapot, short and stout. Here is my handle, here is my spout.",
-  "Mary had a little lamb, Little lamb, little lamb. Mary had a little lamb, Its fleece was white as snow.",
-  "Ring around the rosie, a pocket full of posies, atishoo, atishoo, we all fall down!",
-  "Rock a bye baby, on the tree top, When the wind blows the cradle will rock, When the bough breaks the cradle will fall, And down will come baby, cradle and all.",
-  "Row, row, row your boat gently down the stream, merrily, merrily, merrily, merrily, life is but a dream",
-  "Somebody once told me the world is gonna roll me, I ain't the sharpest tool in the shed. She was looking kind of dumb with her finger and her thumb, in the shape of an L on her forehead"
+  // "David is a monkey.",
+  // "The big purple fox ate the small orange mouse.",
+  // "Kappa Theta Pi stands for the love for technology",
+  // "Hey diddle diddle, The cat and the fiddle, The cow jumped over the moon. The little dog laughed to see such sport, And the dish ran away with the spoon.",
+  // "Hickory Dickory Dock. The mouse ran up the clock. The clock struck one. The mouse ran down. Hickory Dickory Dock",
+  // "I’m a little teapot, short and stout. Here is my handle, here is my spout.",
+  // "Mary had a little lamb, Little lamb, little lamb. Mary had a little lamb, Its fleece was white as snow.",
+  // "Ring around the rosie, a pocket full of posies, atishoo, atishoo, we all fall down!",
+  // "Rock a bye baby, on the tree top, When the wind blows the cradle will rock, When the bough breaks the cradle will fall, And down will come baby, cradle and all.",
+  // "Row, row, row your boat gently down the stream, merrily, merrily, merrily, merrily, life is but a dream",
+  // "Somebody once told me the world is gonna roll me, I ain't the sharpest tool in the shed. She was looking kind of dumb with her finger and her thumb, in the shape of an L on her forehead"
 ];
 
 let prompt = promptList.random();
