@@ -34,7 +34,7 @@ app.get("/app/:path/", (req, res) => {
     res.sendFile(`public/${path}.html`, {root: __dirname })
 });
 
-app.use("/api/:method/:collection/:docID", async (req, res) => {
+app.use("/app/:method/:collection/:docID", async (req, res) => {
     const docID = req.params.docID;
     const collection = req.params.collection;
     const method = req.params.method;
