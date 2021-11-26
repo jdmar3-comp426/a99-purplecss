@@ -17,7 +17,10 @@ let promptList = [
   "Sleeping with your eyes opened is the new trend. I think. I am a little tired tbh.",
   "I like waffles. I like sausages. I also like ketchup on eggs.",
   "minecraft Is a legendary game. I. Love. Minecraft.",
-  "Driving. wIth. yoUr. eyeS. closEd. IS. DANGEROUS."
+  "Driving. wIth. yoUr. eyeS. closEd. IS. DANGEROUS.",
+  "can you perfectly. type. tHis?",
+  "perfect. type. is a typing game. that makes. you. type. a. lot. and get. mad.",
+  "sleeping is the number one priority. eating is the number 2 priority. coding is 3rd priority."
 ];
 
 
