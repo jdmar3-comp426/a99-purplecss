@@ -1,5 +1,5 @@
 <script>
-	import { initFirebase } from "./users"
+	import { initFirebase, getUser } from "./users"
 	import router from 'page';
 	
 	import Header from './pages/Header.svelte';

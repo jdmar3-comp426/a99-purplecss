@@ -1,9 +1,9 @@
 <script>
-  import { createUser, loggedIn } from "../users";
+  import { createUser, getUser } from "../users";
   import { inputType } from "../common";
   
-  if ($loggedIn) {
-    window.location.href = '/app/'
+  if (getUser() != null) {
+    window.location.href = '/'
   }
 
   let thisUser = "";
@@ -41,7 +41,15 @@
               'matchHistoryTime': [],
             }
           }),
-      }).then((res) => {if (user != null) successLog = true})
+      }).then((res) => {
+        if (user != null) {
+          successLog = true;
+
+          setTimeout(() => {
+            window.location.href = '/';
+          }, 1000);
+        }    
+        })
     });
     
     
@@ -53,6 +61,7 @@
   }
 </script>
 
+{#if getUser() == null}
 <main>
   <h1>sign up</h1>
 
@@ -81,3 +90,4 @@
   {/if}
 
 </main>
+{/if}

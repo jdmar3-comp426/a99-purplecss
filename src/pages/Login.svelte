@@ -1,19 +1,31 @@
 <script>
-  import { signUserIn, loggedIn } from "../users";
+  import { signUserIn, getUser } from "../users";
   import { inputType } from "../common";
 
-  if ($loggedIn) {
-    window.location.href = '/app/'
+  if (getUser() != null) {
+    window.location.href = '/'
   }
+
+  console.log(getUser())
+
   let thisUser = "";
   let thisPass = "";
   let successLog = false;
   function handleClick() {
-    signUserIn(thisUser, thisPass).then((user) => { if (user != null) successLog = true})
+    signUserIn(thisUser, thisPass).then((user) => {
+      if (user != null) {
+        successLog = true;
+        
+        setTimeout(() => {
+            window.location.href = '/';
+          }, 1000);
+      }
+    });
 	}
   
 </script>
 
+{#if getUser() == null}
 <main>
   <h1>login</h1>
   
@@ -36,3 +48,4 @@
   {/if}
 
 </main>
+{/if}
