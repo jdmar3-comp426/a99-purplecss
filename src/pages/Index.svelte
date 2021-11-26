@@ -37,7 +37,10 @@ let gameWin = false;
 let gameWinResult = ""
 let  wordsPerMin;
 
+
+
 function onType() {
+
   if (seconds == 0) {
     seconds = new Date().getTime() / 1000;
   }
@@ -52,9 +55,11 @@ function onType() {
 
   for (let i in dataBefore) {
     if (dataBefore[i] != prompt[i]) {
+     
       gameOver = true;
+      gameWin = false;
       gameResult = "try again"
-      gameWinResult = "u missed something :)"
+      gameWinResult = "u missed something &#128512;"
       break;
     }
   }
@@ -66,7 +71,8 @@ function onType() {
     wordsPerMin = words / timeElapsed * 60
     gameOver = true;
     gameWin = true;
-    gameWinResult = `great job! you typed ${wordsPerMin} words per minute.`
+    
+    gameWinResult = `great job &#128550; you typed ${wordsPerMin} words per minute.`
     gameResult = 'play again'
     
     if (getUser() != null) updateUserStats(wordsPerMin)
@@ -197,8 +203,13 @@ function tryAgain() {
   <div class="typing">
     {#if gameOver}
       <div id="message">
-        <p>{gameWinResult}</p>
+        {#if !gameWin}
+        <p id ="result" style = "color:green">{@html gameWinResult}</p> 
+        {:else}
+        <p id ="result" style = "color:red">{@html gameWinResult}</p> 
+        {/if}
         <button on:click={tryAgain}>{gameResult}</button>
+      
       </div>
     {:else}
       <div id="game-container">
