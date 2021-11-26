@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword, signOut, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signOut, signInWithEmailAndPassword, deleteUser, deleteDoc } from "firebase/auth";
 const sessionStorage = window.sessionStorage;
 
 let auth;
@@ -25,6 +25,22 @@ export async function createUser(email, password) {
     } catch(e) {
         alert('User already exists!')
         return null;
+    }
+}
+
+export async function deleteThisUser() {
+    try {
+        fetch(`http://localhost:3000/app/delete/users/${getUser().uid}`, {
+            method: 'delete',
+            headers: { "Content-Type": "application/json" },
+        }).then( 
+            deleteUser(auth.currentUser).then(() => {
+            sessionStorage.setItem("user", "");
+            window.location.href = "/"
+        }))
+	    
+    } catch(e) {
+        console.log('failure deleting account')
     }
 }
 

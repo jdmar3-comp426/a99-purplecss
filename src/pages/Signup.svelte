@@ -1,12 +1,6 @@
 <script>
   import { createUser, getUser } from "../users";
-  import { inputType } from "../common";
-
-  function exitToMain() {
-    setTimeout(() => {
-      window.location.href = '/';
-    }, t00);
-  }
+  import { inputType, exitToMain } from "../common";
 
   if (getUser() != null) {
     window.location.href = '/'
