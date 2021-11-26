@@ -5,7 +5,7 @@
 	import Signup from './pages/Signup.svelte';
 	import Profile from './pages/Profile.svelte';
 	import Header from './pages/Header.svelte';
-	import { initFirebase, getUser, getUserData, updateUserStats } from "./users.js"
+	import { initFirebase } from "./users"
 
 	initFirebase();
 
@@ -36,35 +36,77 @@
 		background-attachment: fixed;
 		width: 100%;
 		text-align: center;
-		overflow: hidden;
 		max-width: 2000px;
 		position: relative;
 		top: 50%;
 		transform: translateY(-50%);
+		overflow: hidden;
 	}
 
 	:global(body) {
 		font-family: 'Times New Roman', Times, serif;
 		padding: 0px;
 		background-color: var(--main-bg-color);
+		overflow: hidden;
+	}
+
+	:global(#form-container) {
+		display: flex;
+		justify-content: space-between;
+		width: 100%;
+		max-width: 650px;
+		margin: auto;
+	}
+
+	:global(.input-container) {
+		position: relative;
 	}
 
 	:global(input) {
-		width: 250px;
+		width: 300px;
 		background: transparent;
 		border: none;
 		border-bottom: solid black 2px;
 		outline: none;
+		font-size: 1.5em;
+		text-align: center;
+	}
+
+	:global(label) {
+		color: gray;
+		font-size: 1.5em;
+		text-align: center;
+		position: absolute;
+		top: 10px;
+		width: 100%;
+		text-align: center;
+		transition: font-size 100ms, top 100ms;
 	}
 
 	:global(.noselect) {
-		-webkit-touch-callout: none; /* iOS Safari */
-		-webkit-user-select: none; /* Safari */
-		-khtml-user-select: none; /* Konqueror HTML */
-		-moz-user-select: none; /* Old versions of Firefox */
-		-ms-user-select: none; /* Internet Explorer/Edge */
-		user-select: none; /* Non-prefixed version, currently
-									supported by Chrome, Edge, Opera and Firefox */
+		-webkit-touch-callout: none;
+		-webkit-user-select: none;
+		-khtml-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+	}
+
+	:global(button) {
+		background-color: transparent;
+		border: 2px solid #472100;
+		display: inline-block;
+		cursor: pointer;
+		color: black;
+		font-size: 1.2em;
+		padding: 16px 32px;
+		text-decoration: none;
+		transition: color 200ms, background-color 200ms;
+	}
+
+	:global(button:hover) {
+		background-color: #472100;
+		color: white;
 	}
 
 </style>

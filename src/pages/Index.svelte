@@ -29,17 +29,23 @@ for (let i=0;i<promptList.length;i++) {
 
 
 let prompt = promptList.random();
-let dataBefore;
+let dataBefore = "";
 let gameOver = false;
 let seconds = 0;
-let gameResult = ""
+let gameResult = "";
 let gameWin = false;
-let gameWinResult = ""
+let gameWinResult = "";
 let  wordsPerMin;
+let messageColor = "green";
+let typeZIndex = 10;
+let inputBox;
 
-
-
-function onType() {
+function onType(e) {
+  if (e.keyCode === 13) {
+      if (gameOver) {
+        tryAgain();
+      }
+  }
 
   if (seconds == 0) {
     seconds = new Date().getTime() / 1000;
@@ -55,11 +61,12 @@ function onType() {
 
   for (let i in dataBefore) {
     if (dataBefore[i] != prompt[i]) {
-     
+      messageColor = "green";
       gameOver = true;
       gameWin = false;
       gameResult = "try again"
-      gameWinResult = "u missed something &#128512;"
+      gameWinResult = "u missed something &#128512;";
+      typeZIndex = -1;
       break;
     }
   }
@@ -71,10 +78,10 @@ function onType() {
     wordsPerMin = words / timeElapsed * 60
     gameOver = true;
     gameWin = true;
-    
+    messageColor = "red";
     gameWinResult = `great job &#128550; you typed ${wordsPerMin} words per minute.`
     gameResult = 'play again'
-    
+    typeZIndex = -1;
     if (getUser() != null) updateUserStats(wordsPerMin)
   }
 
@@ -92,6 +99,8 @@ function tryAgain() {
   seconds = 0;
   dataBefore = "";
   prompt = promptList.random();
+  typeZIndex = 10;
+  inputBox.focus();
 }
 
 // Register onpaste on inputs and textareas in browsers that don't
@@ -120,7 +129,7 @@ function tryAgain() {
             var field = fields[i];
 
             if (typeof field.onpaste != "function" && !!field.getAttribute("onpaste")) {
-                field.onpaste = eval("(function () { " + field.getAttribute("onpaste") + " })");
+                field.onpaste = (function () { field.getAttribute("onpaste") });
             }
 
             if (typeof field.onpaste == "function") {
@@ -187,7 +196,6 @@ function tryAgain() {
     position: absolute;
     width: 100%;
     height: 100%;
-    z-index: 10;
     top: 0;
     left: 0;
     cursor: default;
@@ -202,14 +210,9 @@ function tryAgain() {
 <main>
   <div class="typing">
     {#if gameOver}
-      <div id="message">
-        {#if !gameWin}
-        <p id ="result" style = "color:green">{@html gameWinResult}</p> 
-        {:else}
-        <p id ="result" style = "color:red">{@html gameWinResult}</p> 
-        {/if}
+      <div id="message" on:keyup={tryAgain}>
+        <p id="result" style="color:{messageColor}">{@html gameWinResult}</p>
         <button on:click={tryAgain}>{gameResult}</button>
-      
       </div>
     {:else}
       <div id="game-container">
@@ -219,6 +222,4 @@ function tryAgain() {
   </div>
 </main>
 
-{#if !gameOver}
-<input type="text" name="user-entry" placeholder="start typing here" bind:value={dataBefore} on:keyup={onType} autofocus onpaste="return false;" autocomplete="off">
-{/if}
+<input bind:this="{inputBox}" style="z-index: {typeZIndex};" type="text" name="user-entry" placeholder="start typing here" bind:value={dataBefore} on:keyup={onType} autofocus onpaste="return false;" autocomplete="off">

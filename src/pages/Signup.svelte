@@ -1,5 +1,6 @@
 <script>
-  import { createUser, getUser, loggedIn } from "../users.js";
+  import { createUser, loggedIn } from "../users";
+  import { inputType } from "../common";
   
   if ($loggedIn) {
     window.location.href = '/app/'
@@ -49,8 +50,6 @@
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(String(email).toLowerCase());
   }
-
-
 </script>
 
 <main>
@@ -58,11 +57,25 @@
 
   {#if successLog}
     <p>signed up and logged in!</p>
-
   {:else}
-    <input type="email" name="email" placeholder="email" bind:value={thisUser}/>
-    <input type="password" name="password" placeholder="password" bind:value={thisPass}/>
-    <input type="password" name="password" placeholder="confirm" bind:value={confPass}/>
+    <div class="input-container">
+      <label for="email">email</label>
+      <input id="email" type="email" name="email" bind:value={thisUser} on:keyup="{(e) => inputType(e, handleClick)}"/>
+    </div>
+    <br>
+    <br>  
+    <div id="form-container">
+      <div class="input-container">
+        <label for="password">password</label>
+        <input id="password" type="password" name="password" bind:value={thisPass} on:keyup="{(e) => inputType(e, handleClick)}"/>
+      </div>
+      <div class="input-container">
+        <label for="con-password">confirm password</label>
+        <input id="con-password" type="password" name="con-password" bind:value={confPass} on:keyup="{(e) => inputType(e, handleClick)}"/>
+      </div>
+    </div>
+    <br>
+    <br>
     <button on:click={handleClick}>sign up</button>
   {/if}
 
