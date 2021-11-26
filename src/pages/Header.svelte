@@ -40,13 +40,13 @@
 
 
 <div class="header">
-  <a class="logo" href="/app">
+  <a class="logo" href="/">
     perfect 
     <br> 
     type
   </a>
   <div class="header-right">
-    <a href="/app" class="clickable">play</a>
+    <a href="/app/play" class="clickable">play</a>
     {#if !$loggedIn}
       <a href="/app/login" class="clickable">login</a>
       <a href="/app/signup" class="clickable">signup</a>
