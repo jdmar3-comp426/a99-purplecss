@@ -5,39 +5,70 @@
   let avgWPM = "";
   let numGames = "";
   let matchHistory = [];
+  let matchHistoryTime = []
   getUserData().then((data) => {
     thisUser = data.email
     avgWPM = data.avgWPM
     matchHistory = data.matchHistory
     numGames = data.numGames
+    matchHistoryTime = data.matchHistoryTime
   })
-  console.log(thisUser)
 </script>
+
+<style>
+  .centering {
+    display:inline-block;
+    font-weight: bold;
+  }
+  .match-hist {
+    float: left;
+    padding: 20px
+    
+  }
+</style>
 <main>
   <h1>
-    Profile
+    profile
   </h1>
   
   <h2>
-    Username: {thisUser}
+    username: {thisUser}
   </h2>
 
   <h2>
-    AVG Perfect Words Per Minute: {avgWPM}
+    average perfect wpm: {avgWPM}
   </h2>
 
   <h2>
-    Number of Games Played: {numGames}
+    number of games: {numGames}
   </h2>
 
+  
+
   <h2>
-    Recent Games:
-    <div>
+    recent games:
+  </h2>
+  <div class="centering">
+    {#if matchHistory.length != 0}
+    <div class="match-hist">
+      time:
+      {#each matchHistoryTime as time}
+        <div>
+          <span>{time}</span>
+        </div>
+      {/each}
+    </div>
+    <div class="match-hist">
+      wpm:
       {#each matchHistory as match}
         <div>
           <span>{match}</span>
         </div>
       {/each}
     </div>
-  </h2>
+    {:else} 
+      no matches found.
+    {/if}
+  </div>
+
 </main>
