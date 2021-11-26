@@ -55,7 +55,7 @@
   
 
   <h2>
-    recent games:
+    recent games :
   </h2>
   <div class="centering">
     {#if matchHistory.length != 0}
