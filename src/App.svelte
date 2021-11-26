@@ -36,9 +36,15 @@
 		background-attachment: fixed;
 		height: 100%;
 		width: 100%;
+		text-align: center;
 	}
 	:global(body) {
+		font-family: 'Times New Roman', Times, serif;
 		padding: 0px;
+	}
+
+	:global(input) {
+		width: 250px;
 	}
 </style>
 

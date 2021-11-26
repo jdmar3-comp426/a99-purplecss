@@ -32,12 +32,12 @@
 
   <h2>
     Recent Games:
-    <ul>
+    <div>
       {#each matchHistory as match}
-        <li>
+        <div>
           <span>{match}</span>
-        </li>
+        </div>
       {/each}
-    </ul>
+    </div>
   </h2>
 </main>

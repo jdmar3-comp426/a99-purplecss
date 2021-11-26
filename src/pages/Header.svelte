@@ -21,6 +21,7 @@
   text-align: center;
   padding: 12px;
   text-decoration: none;
+  font-size: 1.7em;
   color: black;
   font-family: 'Times New Roman', Times, serif;
   font-weight: bold;

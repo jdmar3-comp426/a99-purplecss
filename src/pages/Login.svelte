@@ -14,14 +14,14 @@
 
 
 <main>
-  <h1>Login</h1>
+  <h1>login</h1>
 
   {#if successLog}
-    <p>Logged In!</p>
+    <p>logged in!</p>
   {:else}
-    <input type="email" name="email" placeholder="Email" bind:value={thisUser}/>
-    <input type="password" name="password" placeholder="Password" bind:value={thisPass}/>
-    <button on:click={handleClick}>Log in</button>
+    <input type="email" name="email" placeholder="email" bind:value={thisUser}/>
+    <input type="password" name="password" placeholder="password" bind:value={thisPass}/>
+    <button on:click={handleClick}>log in</button>
   {/if}
 
 </main>
