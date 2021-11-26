@@ -7,8 +7,8 @@ Array.prototype.random = function() {
 }
 
 let promptList = [
-  "test. apples. are. green.",
-  //"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin risus nisl, tempor non mi a, convallis porta eros. Quisque at ligula ac dui aliquam vulputate eget in nunc. Ut felis orci, pretium sed metus in, molestie gravida mi. Praesent nec lacinia metus. In hac habitasse platea dictumst. Duis mollis lacinia eros, vel feugiat magna mattis sit amet. Sed aliquet massa ac libero dictum imperdiet. Nam eleifend, massa eu dictum sodales, sem diam lobortis nulla, ut dapibus massa quam in arcu. In pulvinar metus vel nibh luctus, quis convallis massa posuere. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nullam pellentesque purus est, eget hendrerit nisl elementum sed. Aenean ullamcorper finibus commodo. Nunc fermentum sed urna sit amet dapibus. "
+  //"test. apples. are. green.",
+  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin risus nisl, tempor non mi a, convallis porta eros. Quisque at ligula ac dui aliquam vulputate eget in nunc. Ut felis orci, pretium sed metus in, molestie gravida mi. Praesent nec lacinia metus. In hac habitasse platea dictumst. Duis mollis lacinia eros, vel feugiat magna mattis sit amet. Sed aliquet massa ac libero dictum imperdiet. Nam eleifend, massa eu dictum sodales, sem diam lobortis nulla, ut dapibus massa quam in arcu. In pulvinar metus vel nibh luctus, quis convallis massa posuere. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nullam pellentesque purus est, eget hendrerit nisl elementum sed. Aenean ullamcorper finibus commodo. Nunc fermentum sed urna sit amet dapibus. "
   // "I like purple$bananas.",
   // "David is a$monkey.",
   // "The big purple fox ate the small$orange mouse.",
@@ -35,7 +35,6 @@ let seconds = 0;
 let gameResult = "";
 let gameWin = false;
 let gameWinResult = "";
-let wordsPerMin;
 let messageColor = "green";
 let typeZIndex = 10;
 let inputBox;
@@ -47,6 +46,7 @@ function onType(e) {
   if (e.keyCode === 13) {
       if (gameOver) {
         tryAgain();
+        return;
       }
   }
 
@@ -70,7 +70,7 @@ function onType(e) {
       gameOver = true;
       gameWin = false;
       gameResult = "try again"
-      gameWinResult = "u missed something &#128512;";
+      gameWinResult = "u missed something lol &#128512;";
       typeZIndex = -1;
       break;
     }
@@ -80,11 +80,11 @@ function onType(e) {
     // end game GAME WIN
     let timeElapsed = new Date().getTime() / 1000 - seconds;
     let words = prompt.split(" ").length;
-    wordsPerMin = words / timeElapsed * 60
+    let wordsPerMin = words / timeElapsed * 60
     gameOver = true;
     gameWin = true;
     messageColor = "red";
-    gameWinResult = `great job &#128550; you typed ${wordsPerMin} words per minute.`
+    gameWinResult = `u won !? &#128550; you typed ${wordsPerMin} words per minute.`
     gameResult = 'play again'
     typeZIndex = -1;
     if (getUser() != null) updateUserStats(wordsPerMin)
