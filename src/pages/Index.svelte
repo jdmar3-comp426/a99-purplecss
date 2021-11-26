@@ -9,7 +9,16 @@ Array.prototype.random = function() {
 let promptList = [
   "I like purple bananas.",
   "David is a monkey.",
-  "The big purple fox ate the small orange mouse."
+  "The big purple fox ate the small orange mouse.",
+  "Kappa Theta Pi stands for the love for technology",
+  "Hey diddle diddle, The cat and the fiddle, The cow jumped over the moon. The little dog laughed to see such sport, And the dish ran away with the spoon.",
+  "Hickory Dickory Dock. The mouse ran up the clock. The clock struck one. The mouse ran down. Hickory Dickory Dock",
+  "I’m a little teapot, short and stout. Here is my handle, here is my spout.",
+  "Mary had a little lamb, Little lamb, little lamb. Mary had a little lamb, Its fleece was white as snow.",
+  "Ring around the rosie, a pocket full of posies, atishoo, atishoo, we all fall down!",
+  "Rock a bye baby, on the tree top, When the wind blows the cradle will rock, When the bough breaks the cradle will fall, And down will come baby, cradle and all.",
+  "Row, row, row your boat gently down the stream, merrily, merrily, merrily, merrily, life is but a dream",
+  "Somebody once told me the world is gonna roll me, I ain't the sharpest tool in the shed. She was looking kind of dumb with her finger and her thumb, in the shape of an L on her forehead"
 ];
 
 let prompt = promptList.random();
@@ -56,22 +65,67 @@ function tryAgain() {
   dataBefore = "";
   prompt = promptList.random();
 }
+
+// Register onpaste on inputs and textareas in browsers that don't
+// natively support it.
+(function () {
+    var onload = window.onload;
+
+    window.onload = function () {
+        if (typeof onload == "function") {
+            onload.apply(this, arguments);
+        }
+
+        var fields = [];
+        var inputs = document.getElementsByTagName("input");
+        var textareas = document.getElementsByTagName("textarea");
+
+        for (var i = 0; i < inputs.length; i++) {
+            fields.push(inputs[i]);
+        }
+
+        for (var i = 0; i < textareas.length; i++) {
+            fields.push(textareas[i]);
+        }
+
+        for (var i = 0; i < fields.length; i++) {
+            var field = fields[i];
+
+            if (typeof field.onpaste != "function" && !!field.getAttribute("onpaste")) {
+                field.onpaste = eval("(function () { " + field.getAttribute("onpaste") + " })");
+            }
+
+            if (typeof field.onpaste == "function") {
+                var oninput = field.oninput;
+
+                field.oninput = function () {
+                    if (typeof oninput == "function") {
+                        oninput.apply(this, arguments);
+                    }
+
+                    if (typeof this.previousValue == "undefined") {
+                        this.previousValue = this.value;
+                    }
+
+                    var pasted = (Math.abs(this.previousValue.length - this.value.length) > 1 && this.value != "");
+
+                    if (pasted && !this.onpaste.apply(this, arguments)) {
+                        this.value = this.previousValue;
+                    }
+
+                    this.previousValue = this.value;
+                };
+
+                if (field.addEventListener) {
+                    field.addEventListener("input", field.oninput, false);
+                } else if (field.attachEvent) {
+                    field.attachEvent("oninput", field.oninput);
+                }
+            }
+        }
+    }
+})();
 </script>
-
-<main>
-  {#if gameOver}
-    <div id="failed-message">
-      <p>{gameWinResult}</p>
-      <button on:click={tryAgain}>{gameResult}</button>
-    </div>
-  {:else}
-    <div id="game-container">
-      <div id="prompt" {dataBefore}>{prompt}</div>
-      <input type="text" name="user-entry" placeholder="Start typing here" bind:value={dataBefore} on:keyup={onType} />
-    </div>
-  {/if}
-
-</main>
 
 <style>
   #prompt::before {
@@ -88,4 +142,32 @@ function tryAgain() {
   #game-container {
     position: relative;
   }
+  .typing {
+    font-size: 2em;
+    font-family: 'Courier New', Courier, monospace;
+  }
+
+  input { 
+    margin-top: 25px;
+    width: 60%;
+  }
+  main {
+    padding: 0px;
+  }
 </style>
+
+<main>
+  <div class="typing">
+    {#if gameOver}
+      <div id="failed-message">
+        <p>{gameWinResult}</p>
+        <button on:click={tryAgain}>{gameResult}</button>
+      </div>
+    {:else}
+      <div id="game-container">
+        <div id="prompt" {dataBefore}>{prompt}</div>
+        <input type="text" name="user-entry" placeholder="start typing here" bind:value={dataBefore} on:keyup={onType} onpaste="return false;" autocomplete="off">
+      </div>
+    {/if}
+  </div>
+</main>

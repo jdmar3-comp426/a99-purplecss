@@ -11,72 +11,58 @@
 	/* Style the header with a grey background and some padding */
 .header {
   overflow: hidden;
-  background-color: #f1f1f1;
   padding: 20px 10px;
+  background-color: var(--main-bg-color);
 }
 
 /* Style the header links */
 .header a {
   float: left;
-  color: black;
   text-align: center;
   padding: 12px;
   text-decoration: none;
-  font-size: 18px;
-  line-height: 25px;
-  border-radius: 4px;
+  font-size: 1.7em;
+  color: black;
+  font-family: 'Times New Roman', Times, serif;
+  font-weight: bold;
+  padding: 30px;
 }
 
 /* Style the logo link (notice that we set the same value of line-height and font-size to prevent the header to increase when the font gets bigger */
 .header a.logo {
-  font-size: 25px;
+  font-size: 100px;
   font-weight: bold;
+  text-align: left;
 }
 
 /* Change the background color on mouse-over */
-.header a:hover {
-  background-color: #ddd;
-  color: black;
+.header .clickable:hover {
+  color: grey;
 }
 
-/* Style the active/current link*/
-.header a.active {
-  background-color: dodgerblue;
-  color: white;
-}
 
 /* Float the link section to the right */
 .header-right {
   float: right;
 }
 
-/* Add media queries for responsiveness - when the screen is 500px wide or less, stack the links on top of each other */
-@media screen and (max-width: 500px) {
-  .header a {
-    float: none;
-    display: block;
-    text-align: left;
-  }
-  .header-right {
-    float: none;
-  }
-}
 </style>
 
-<main>
-  <div class="header">
-    <a class="logo" href="/app">Perfect Type</a>
-    <div class="header-right">
-      <a href="/app">Play</a>
-      {#if !$loggedIn}
-      <a href="/app/login">Login</a>
-      <a href="/app/signup">Signup</a>
-      {:else}
-      <a href="/app/profile">Profile</a>
-      <a href="/app" on:click={logUserOut}>Logout</a>
-      {/if}
-    
-    </div>
+
+<div class="header">
+  <div class="header-right">
+    <a href="/app" class="clickable">play</a>
+    {#if !$loggedIn}
+    <a href="/app/login" class="clickable">login</a>
+    <a href="/app/signup" class="clickable">signup</a>
+    {:else}
+    <a href="/app/profile" class="clickable">profile</a>
+    <a href="/app" on:click={logUserOut}>logout</a>
+    {/if}
   </div>
-  <!-- <button on:click={switchLogin}>POO</button> -->
-</main>
+  <a class="logo" href="/app">
+    perfect 
+    <br> 
+    type
+  </a>
+</div>

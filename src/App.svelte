@@ -24,9 +24,34 @@
 	}
 </script>
 
+<style>
+	:global(:root) {
+		--main-bg-color: #F4F1E2;
+	}
+	:global(main) {
+		background-color: var(--main-bg-color);
+		overflow:scroll;
+		background-size: cover;
+		background-position: center;
+		background-attachment: fixed;
+		height: 100%;
+		width: 100%;
+		text-align: center;
+	}
+	:global(body) {
+		font-family: 'Times New Roman', Times, serif;
+		padding: 0px;
+	}
+
+	:global(input) {
+		width: 250px;
+	}
+</style>
+
 <svelte:head>
 	<title>{title}</title>
 </svelte:head>
+
 
 <Header />
 <svelte:component this="{page}" />

@@ -54,16 +54,16 @@
 </script>
 
 <main>
-  <h1>Sign Up</h1>
+  <h1>sign up</h1>
 
   {#if successLog}
-    <p>Signed Up and Logged In!</p>
+    <p>signed up and logged in!</p>
 
   {:else}
-    <input type="email" name="email" placeholder="Email" bind:value={thisUser}/>
-    <input type="password" name="password" placeholder="Password" bind:value={thisPass}/>
-    <input type="password" name="password" placeholder="Confirm" bind:value={confPass}/>
-    <button on:click={handleClick}>Sign Up</button>
+    <input type="email" name="email" placeholder="email" bind:value={thisUser}/>
+    <input type="password" name="password" placeholder="password" bind:value={thisPass}/>
+    <input type="password" name="password" placeholder="confirm" bind:value={confPass}/>
+    <button on:click={handleClick}>sign up</button>
   {/if}
 
 </main>
