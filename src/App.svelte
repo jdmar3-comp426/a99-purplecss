@@ -1,11 +1,14 @@
 <script>
+	import { initFirebase } from "./users"
 	import router from 'page';
+	
+	import Header from './pages/Header.svelte';
+	
 	import Index from './pages/Index.svelte';
 	import Login from './pages/Login.svelte';
 	import Signup from './pages/Signup.svelte';
 	import Profile from './pages/Profile.svelte';
-	import Header from './pages/Header.svelte';
-	import { initFirebase, getUser, getUserData, updateUserStats } from "./users.js"
+	import Rules from './pages/Rules.svelte';
 
 	initFirebase();
 
@@ -13,15 +16,12 @@
 	let page;
 
 	router('/app/', () => { page = Index; title = "Perfect Type"; });
-	router('/app/login', () => { page = Login; title = "Login"; });
-	router('/app/signup', () => { page = Signup; title = "Sign Up"; });
-	router('/app/profile', () => { page = Profile; title = "Profile"; });
+	router('/app/login', () => { page = Login; title = "Perfect Type - Login"; });
+	router('/app/signup', () => { page = Signup; title = "Perfect Type - Sign Up"; });
+	router('/app/profile', () => { page = Profile; title = "Perfect Type - Profile"; });
+	router('/app/rules', () => { page = Rules; title = "Perfect Type - Rules"; });
 
 	router.start()
-	
-	function clicker() {
-		// updateUserStats(169).then(() => null)
-	}
 </script>
 
 <style>
@@ -36,35 +36,88 @@
 		background-attachment: fixed;
 		width: 100%;
 		text-align: center;
-		overflow: hidden;
 		max-width: 2000px;
 		position: relative;
 		top: 50%;
 		transform: translateY(-50%);
+		overflow: hidden;
+		color: gray;
 	}
 
 	:global(body) {
 		font-family: 'Times New Roman', Times, serif;
 		padding: 0px;
 		background-color: var(--main-bg-color);
+		overflow: hidden;
+	}
+
+	:global(#form-container) {
+		display: flex;
+		justify-content: space-between;
+		width: 100%;
+		max-width: 650px;
+		margin: auto;
+	}
+
+	:global(.input-container) {
+		position: relative;
 	}
 
 	:global(input) {
-		width: 250px;
+		width: 300px;
 		background: transparent;
 		border: none;
 		border-bottom: solid black 2px;
 		outline: none;
+		font-size: 1.5em;
+		text-align: center;
+	}
+
+	:global(label) {
+		color: gray;
+		font-size: 1.5em;
+		text-align: center;
+		position: absolute;
+		top: 10px;
+		width: 100%;
+		text-align: center;
+		transition: font-size 100ms, top 100ms;
 	}
 
 	:global(.noselect) {
-		-webkit-touch-callout: none; /* iOS Safari */
-		-webkit-user-select: none; /* Safari */
-		-khtml-user-select: none; /* Konqueror HTML */
-		-moz-user-select: none; /* Old versions of Firefox */
-		-ms-user-select: none; /* Internet Explorer/Edge */
-		user-select: none; /* Non-prefixed version, currently
-									supported by Chrome, Edge, Opera and Firefox */
+		-webkit-touch-callout: none;
+		-webkit-user-select: none;
+		-khtml-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+	}
+
+	:global(button) {
+		background-color: transparent;
+		border: 2px solid #472100;
+		display: inline-block;
+		cursor: pointer;
+		color: gray;
+		font-size: 1.2em;
+		padding: 16px 32px;
+		text-decoration: none;
+		transition: color 200ms, background-color 200ms;
+	}
+
+	:global(button:hover) {
+		background-color: #472100;
+		color: var(--main-bg-color);
+	}
+
+	:global(a) {
+		color: gray !important;
+    	text-decoration: underline;
+		transition: color 200ms;
+	}
+
+	:global(a:hover) {
+		color: black !important;
 	}
 
 </style>

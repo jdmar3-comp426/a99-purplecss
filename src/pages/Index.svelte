@@ -7,7 +7,8 @@ Array.prototype.random = function() {
 }
 
 let promptList = [
-  "I like poop. I like green. I am purple."
+  //"test. apples. are. green.",
+  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin risus nisl, tempor non mi a, convallis porta eros. Quisque at ligula ac dui aliquam vulputate eget in nunc. Ut felis orci, pretium sed metus in, molestie gravida mi. Praesent nec lacinia metus. In hac habitasse platea dictumst. Duis mollis lacinia eros, vel feugiat magna mattis sit amet. Sed aliquet massa ac libero dictum imperdiet. Nam eleifend, massa eu dictum sodales, sem diam lobortis nulla, ut dapibus massa quam in arcu. In pulvinar metus vel nibh luctus, quis convallis massa posuere. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nullam pellentesque purus est, eget hendrerit nisl elementum sed. Aenean ullamcorper finibus commodo. Nunc fermentum sed urna sit amet dapibus. "
   // "I like purple$bananas.",
   // "David is a$monkey.",
   // "The big purple fox ate the small$orange mouse.",
@@ -22,24 +23,32 @@ let promptList = [
   // "Somebody once told me the world is gonna roll me, I ain't the sharpest tool in the shed. She was looking kind of dumb with her finger and her thumb, in the shape of an L on her forehead"
 ];
 
-
 for (let i=0;i<promptList.length;i++) {
   promptList[i] = promptList[i].replaceAll(". ", ".$");
 }
 
-
 let prompt = promptList.random();
-let dataBefore;
+let oPrompt = prompt.split("$")[0] + "$" + prompt;
+let dataBefore = "";
 let gameOver = false;
 let seconds = 0;
-let gameResult = ""
+let gameResult = "";
 let gameWin = false;
-let gameWinResult = ""
-let  wordsPerMin;
+let gameWinResult = "";
+let messageColor = "green";
+let typeZIndex = 10;
+let inputBox;
+let promptTop = -50;
+let promptLineHeight = 50;
+let lineCount = 0;
 
-
-
-function onType() {
+function onType(e) {
+  if (e.keyCode === 13) {
+      if (gameOver) {
+        tryAgain();
+        return;
+      }
+  }
 
   if (seconds == 0) {
     seconds = new Date().getTime() / 1000;
@@ -51,15 +60,18 @@ function onType() {
     prompt = prompt.substring(prompt.indexOf("$")-1).replace("$", "");
     dataBefore = dataBefore.substring(dataBefore.length-1);
     dollar = true;
+    promptTop -= promptLineHeight;
+    lineCount++;
   }
 
   for (let i in dataBefore) {
     if (dataBefore[i] != prompt[i]) {
-     
+      messageColor = "green";
       gameOver = true;
       gameWin = false;
       gameResult = "try again"
-      gameWinResult = "u missed something &#128512;"
+      gameWinResult = "u missed something lol &#128512;";
+      typeZIndex = -1;
       break;
     }
   }
@@ -68,19 +80,25 @@ function onType() {
     // end game GAME WIN
     let timeElapsed = new Date().getTime() / 1000 - seconds;
     let words = prompt.split(" ").length;
-    wordsPerMin = words / timeElapsed * 60
+    let wordsPerMin = words / timeElapsed * 60
     gameOver = true;
     gameWin = true;
-    
-    gameWinResult = `great job &#128550; you typed ${wordsPerMin} words per minute.`
+    messageColor = "red";
+    gameWinResult = `u won !? &#128550; you typed ${wordsPerMin} words per minute.`
     gameResult = 'play again'
-    
+    typeZIndex = -1;
     if (getUser() != null) updateUserStats(wordsPerMin)
   }
 
   if (dollar) {
     prompt = prompt.substring(1);
     dataBefore = dataBefore.substring(1);
+
+    let tempOprompt = "";
+    for (let i=0;i<lineCount;i++) {
+      tempOprompt += oPrompt.split("$")[i] + "$";
+    }
+    oPrompt = prompt.split("$")[0] + "$" + tempOprompt + prompt;
   }
   
 }
@@ -92,6 +110,11 @@ function tryAgain() {
   seconds = 0;
   dataBefore = "";
   prompt = promptList.random();
+  oPrompt = prompt.split("$")[0] + "$" + prompt;
+  typeZIndex = 10;
+  inputBox.focus();
+  promptTop = -50;
+  lineCount = 0;
 }
 
 // Register onpaste on inputs and textareas in browsers that don't
@@ -120,7 +143,7 @@ function tryAgain() {
             var field = fields[i];
 
             if (typeof field.onpaste != "function" && !!field.getAttribute("onpaste")) {
-                field.onpaste = eval("(function () { " + field.getAttribute("onpaste") + " })");
+                field.onpaste = (function () { field.getAttribute("onpaste") });
             }
 
             if (typeof field.onpaste == "function") {
@@ -156,21 +179,39 @@ function tryAgain() {
 </script>
 
 <style>
+  #occlusion {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(transparent, var(--main-bg-color));
+    position: absolute;
+    top: 0;
+  }
+
+  #prompt {
+    position: relative;
+    transition: top 100ms;
+		top: var(--top);
+		line-height: var(--line-height);
+  }
+
   #prompt::before {
 		position: absolute;
-		top: 0;
+		top: calc(-1 * var(--top));
+		line-height: var(--line-height);
 		overflow: hidden;
 		padding: 0 0;
 		max-width: 100%;
 	  color: #800000;
 		content: attr(dataBefore);
     font-weight: bold;
+    text-align: center;
 	}
 
   #game-container {
     position: relative;
     width: 100%;
-    height: 100%;
+    height: 150px;
+    overflow: hidden;
   }
 
   .typing {
@@ -187,14 +228,19 @@ function tryAgain() {
     position: absolute;
     width: 100%;
     height: 100%;
-    z-index: 10;
     top: 0;
     left: 0;
     cursor: default;
   }
 
-  main {
-    padding: 0px;
+  #rules {
+    position: absolute;
+    bottom: 20px;
+    color: gray !important;
+    font-size: 1.5em;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 200;
   }
 
 </style>
@@ -202,23 +248,21 @@ function tryAgain() {
 <main>
   <div class="typing">
     {#if gameOver}
-      <div id="message">
-        {#if !gameWin}
-        <p id ="result" style = "color:green">{@html gameWinResult}</p> 
-        {:else}
-        <p id ="result" style = "color:red">{@html gameWinResult}</p> 
-        {/if}
+      <div id="message" on:keyup={tryAgain}>
+        <p id="result" style="color:{messageColor}">{@html gameWinResult}</p>
         <button on:click={tryAgain}>{gameResult}</button>
-      
       </div>
     {:else}
       <div id="game-container">
-        <div id="prompt" class="noselect" {dataBefore}>{@html prompt.replaceAll("$", "<br>")}</div>
+        <div id="prompt" class="noselect" style="--line-height:{promptLineHeight}px;--top:{promptTop}px;" {dataBefore}>{@html oPrompt.replaceAll("$", "<br>")}</div>
+        <div id="occlusion"></div>
       </div>
     {/if}
   </div>
 </main>
 
-{#if !gameOver}
-<input type="text" name="user-entry" placeholder="start typing here" bind:value={dataBefore} on:keyup={onType} autofocus onpaste="return false;" autocomplete="off">
-{/if}
+<input bind:this="{inputBox}" style="z-index: {typeZIndex};" type="text" name="user-entry" placeholder="start typing here" bind:value={dataBefore} on:keyup={onType} autofocus onpaste="return false;" autocomplete="off">
+
+<div id="rules">
+  see the rules and how to play <a href="/app/rules">here</a>.
+</div>
