@@ -65,7 +65,7 @@
 
 <main>
   <div class="header">
-    <a class="logo" href="/app">Poopy Type</a>
+    <a class="logo" href="/app">Perfect Type</a>
     <div class="header-right">
       <a href="/app">Play</a>
       {#if !$loggedIn}

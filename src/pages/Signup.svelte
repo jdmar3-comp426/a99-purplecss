@@ -34,11 +34,12 @@
             'data': 
             {
               'email': thisUser,
+              'numGames': 0,
+              'avgWPM': 0,
+              'matchHistory': [],
             }
           }),
-      }).then((res) => {
-        successLog = true;
-      })
+      }).then((res) => {if (user != null) successLog = true})
     });
     
     
