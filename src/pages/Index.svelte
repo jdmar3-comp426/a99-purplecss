@@ -46,7 +46,7 @@ let lineCount = 0;
 let updatedUser = false
 
 function onType(e) {
-  if (e.keyCode === 13) {
+  if (e.keyCode === 13 || e.keyCode == 32) {
       if (gameOver) {
         tryAgain();
         return;

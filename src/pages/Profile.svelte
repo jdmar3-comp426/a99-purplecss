@@ -1,5 +1,5 @@
 <script>
-  import { getUserData, getUser, signUserIn, loggedIn } from "../users";
+  import { getUserData, getUser } from "../users";
   if (getUser() == null) window.location.href = '/app/login'
   let thisUser = "";
   let avgWPM = "";

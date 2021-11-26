@@ -1,8 +1,8 @@
 <script>
-  import { createUser, loggedIn } from "../users";
+  import { createUser, getUser } from "../users";
   import { inputType } from "../common";
   
-  if ($loggedIn) {
+  if (getUser()) {
     window.location.href = '/app/'
   }
 

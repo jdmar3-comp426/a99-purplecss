@@ -1,5 +1,7 @@
 <script>
-  import { getUser, logoutUser, loggedIn } from "../users";
+import { get } from "svelte/store";
+
+  import { getUser, logoutUser } from "../users";
 
 
   function logUserOut() {
@@ -47,7 +49,7 @@
   </a>
   <div class="header-right">
     <a href="/app/play" class="clickable">play</a>
-    {#if !$loggedIn}
+    {#if getUser() != null}
       <a href="/app/login" class="clickable">login</a>
       <a href="/app/signup" class="clickable">signup</a>
     {:else}

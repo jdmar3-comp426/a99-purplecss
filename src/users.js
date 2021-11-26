@@ -1,7 +1,5 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, createUserWithEmailAndPassword, signOut, signInWithEmailAndPassword } from "firebase/auth";
-import { writable } from 'svelte/store';
-export const loggedIn = writable(false);
 
 let auth;
 let user;
@@ -23,10 +21,8 @@ export async function createUser(email, password) {
     try {
 	    const userCreds = await createUserWithEmailAndPassword(auth, email, password);
         user = userCreds.user;
-        loggedIn.update(() => true)
     } catch(e) {
         user = null
-        loggedIn.update(() => false)
         alert('User already exists!')
         return null;
     }
@@ -37,10 +33,8 @@ export async function signUserIn(email, password) {
     try {
         const userCreds = await signInWithEmailAndPassword(auth, email, password);
         user = userCreds.user;
-        loggedIn.update(() => true)
     } catch(e) {
         user = null
-        loggedIn.update(() => false)
         alert('Invalid login')
         return null
     }
@@ -58,13 +52,12 @@ export async function logoutUser() {
     } catch (e) {
     }
     user = null;
-    loggedIn.update(() => false)
     return user
 }
 
 export async function getUserData() {
     try {
-        let x = await fetch(`http://localhost:3000/app/get/users/${user.uid}`, {
+        let x = await fetch(`http://localhost:3000/api/get/users/${user.uid}`, {
             method: 'get',
             headers: { "Content-Type": "application/json" },
         });
@@ -106,7 +99,7 @@ export async function updateUserStats(newWPM) {
         }
         avgWPM = sum / matchHistory.length
 
-        fetch(`http://localhost:3000/app/patch/users/${user.uid}`, {
+        fetch(`http://localhost:3000/api/patch/users/${user.uid}`, {
             method: 'PATCH',
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(
