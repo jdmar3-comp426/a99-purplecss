@@ -63,12 +63,18 @@ export async function logoutUser() {
 }
 
 export async function getUserData() {
-    let x = await fetch(`http://localhost:3000/api/get/users/${user.uid}`, {
-        method: 'get',
-        headers: { "Content-Type": "application/json" },
-    });
-    let data = await x.json();
-    return data;
+    try {
+        let x = await fetch(`http://localhost:3000/api/get/users/${user.uid}`, {
+            method: 'get',
+            headers: { "Content-Type": "application/json" },
+        });
+        let data = await x.json();
+        return data;
+    } catch (e) {
+        // INITIALIZE A NEW OBJECT (THIS IS WHAT WE STORE FOR EVERY USER UID IN)
+        return {thisUser: "", avgWPM: "", matchHistory: [], numGames: 0, matchHistoryTime: [] };
+    }
+
 }
 
 export async function updateUserStats(newWPM) {
@@ -76,17 +82,24 @@ export async function updateUserStats(newWPM) {
     let avgWPM = "";
     let matchHistory = "";
     let numGames = "";
+    let matchHistoryTime = "";
     getUserData().then((data) => {
         thisUser = data.email
         avgWPM = data.avgWPM
         matchHistory = data.matchHistory
+        matchHistoryTime = data.matchHistoryTime
         numGames = data.numGames
+        var time = new Date();
         if (matchHistory.length < 10) {
             matchHistory.splice(0, 0, newWPM)
+            matchHistoryTime.splice(0, 0, time.toLocaleString())
         } else {
             matchHistory.splice(0, 0, newWPM)
             matchHistory.pop()
+            matchHistoryTime.splice(0, 0, time.toLocaleString())
+            matchHistoryTime.pop()
         }
+
         let sum = 0;
         for (const wpm of matchHistory) {
             sum += wpm
@@ -103,6 +116,7 @@ export async function updateUserStats(newWPM) {
                     'numGames': numGames + 1,
                     'avgWPM': avgWPM,
                     'matchHistory': matchHistory,
+                    'matchHistoryTime': matchHistoryTime,
                 }
             }),
         })
