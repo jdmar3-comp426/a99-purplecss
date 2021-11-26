@@ -43,6 +43,7 @@ let inputBox;
 let promptTop = -50;
 let promptLineHeight = 50;
 let lineCount = 0;
+let updatedUser = false
 
 function onType(e) {
   if (e.keyCode === 13) {
@@ -83,8 +84,9 @@ function onType(e) {
     // end game GAME WIN
     let timeElapsed = new Date().getTime() / 1000 - seconds;
     let wordsPerMin = numWords / timeElapsed * 60
-    if (getUser() != null) {
+    if (getUser() != null && seconds != null && !updatedUser) {
       updateUserStats(wordsPerMin)
+      updatedUser = true;
     }
     gameOver = true;
     gameWin = true;
@@ -119,6 +121,7 @@ function tryAgain() {
   inputBox.focus();
   promptTop = -50;
   lineCount = 0;
+  updatedUser = false;
 }
 
 // Register onpaste on inputs and textareas in browsers that don't

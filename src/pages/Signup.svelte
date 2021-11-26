@@ -38,6 +38,7 @@
               'numGames': 0,
               'avgWPM': 0,
               'matchHistory': [],
+              'matchHistoryTime': [],
             }
           }),
       }).then((res) => {if (user != null) successLog = true})
