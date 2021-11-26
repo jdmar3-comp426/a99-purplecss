@@ -21,17 +21,17 @@ app.listen(HTTP_PORT, () => {
 });
 
 app.get("/", (req, res) => {
-    res.status(301).redirect("http://localhost:3000/app/");
+    res.sendFile('public/index.html', {root: __dirname });
 });
 
 app.get("/app/", (req, res) => {
-    res.sendFile('public/index.html', {root: __dirname })
+    res.sendFile('public/index.html', {root: __dirname });
 });
 
 app.get("/app/:path/", (req, res) => {
     const path = req.params.path;
     
-    res.sendFile(`public/${path}.html`, {root: __dirname })
+    res.sendFile(`public/${path}.html`, {root: __dirname });
 });
 
 app.use("/app/:method/:collection/:docID", async (req, res) => {
