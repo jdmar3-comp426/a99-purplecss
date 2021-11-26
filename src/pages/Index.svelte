@@ -62,7 +62,6 @@ function onType(e) {
   let dollar = false;
 
   if (prompt[dataBefore.length] == "$") {
-
     prompt = prompt.substring(prompt.indexOf("$")-1).replace("$", "");
     dataBefore = dataBefore.substring(dataBefore.length-1);
     dollar = true;
@@ -82,7 +81,6 @@ function onType(e) {
 
 
   if (dataBefore == prompt) {
-    console.log("daw;")
     // end game GAME WIN
     let timeElapsed = new Date().getTime() / 1000 - seconds;
     let wordsPerMin = numWords / timeElapsed * 60
@@ -101,14 +99,13 @@ function onType(e) {
   if (dollar) {
     prompt = prompt.substring(1);
     dataBefore = dataBefore.substring(1);
-
+    
     let tempOprompt = "";
     for (let i=0;i<lineCount;i++) {
       tempOprompt += oPrompt.split("$")[i] + "$";
     }
     oPrompt = prompt.split("$")[0] + "$" + tempOprompt + prompt;
-  }
-  
+  } 
 }
 
 function tryAgain() {
@@ -235,21 +232,11 @@ function tryAgain() {
     width: 60%;
     opacity: 0;
     position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
+    width: 90%;
+    height: 90%;
+    top: 5%;
     left: 0;
     cursor: default;
-  }
-
-  #rules {
-    position: absolute;
-    bottom: 20px;
-    color: gray !important;
-    font-size: 1.5em;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 200;
   }
 
 </style>
@@ -271,7 +258,3 @@ function tryAgain() {
 </main>
 
 <input bind:this="{inputBox}" style="z-index: {typeZIndex};" type="text" name="user-entry" placeholder="start typing here" bind:value={dataBefore} on:keyup={onType} autofocus onpaste="return false;" autocomplete="off">
-
-<div id="rules">
-  see the rules and how to play <a href="/app/rules">here</a>.
-</div>

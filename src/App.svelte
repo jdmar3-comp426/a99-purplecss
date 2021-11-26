@@ -4,6 +4,7 @@
 	
 	import Header from './pages/Header.svelte';
 	
+	import LandingPage from './pages/LandingPage.svelte';
 	import Index from './pages/Index.svelte';
 	import Login from './pages/Login.svelte';
 	import Signup from './pages/Signup.svelte';
@@ -15,13 +16,23 @@
 	let title;
 	let page;
 
-	router('/app/', () => { page = Index; title = "Perfect Type"; });
-	router('/app/login', () => { page = Login; title = "Perfect Type - Login"; });
-	router('/app/signup', () => { page = Signup; title = "Perfect Type - Sign Up"; });
-	router('/app/profile', () => { page = Profile; title = "Perfect Type - Profile"; });
-	router('/app/rules', () => { page = Rules; title = "Perfect Type - Rules"; });
+	let loadedNotPlay = false;
 
-	router.start()
+	router('/', () => { page = LandingPage; title = "Perfect Type"; loadedNotPlay = true; });
+	router('/app', () => { page = LandingPage; title = "Perfect Type"; loadedNotPlay = true; });
+	router('/app/play', () => {
+		page = Index; title = "Perfect Type - Play";
+		
+		if (!loadedNotPlay) {
+			window.location.href = "/";
+		}
+	});
+	router('/app/login', () => { page = Login; title = "Perfect Type - Login"; loadedNotPlay = true; });
+	router('/app/signup', () => { page = Signup; title = "Perfect Type - Sign Up"; loadedNotPlay = true; });
+	router('/app/profile', () => { page = Profile; title = "Perfect Type - Profile"; loadedNotPlay = true; });
+	router('/app/rules', () => { page = Rules; title = "Perfect Type - Rules"; loadedNotPlay = true; });
+
+	router.start();
 </script>
 
 <style>
@@ -120,6 +131,15 @@
 		color: black !important;
 	}
 
+	#rules {
+		position: absolute;
+		bottom: 20px;
+		color: gray !important;
+		font-size: 1.5em;
+		left: 50%;
+		transform: translateX(-50%);
+		z-index: 200;
+	}
 </style>
 
 <svelte:head>
@@ -129,3 +149,9 @@
 
 <Header />
 <svelte:component this="{page}" />
+
+{#if page == Index || page == LandingPage}
+	<div id="rules">
+		see the rules and how to play <a href="/app/rules">here</a>
+	</div>
+{/if}
