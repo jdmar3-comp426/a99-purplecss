@@ -32,7 +32,7 @@
 .logo {
   font-weight: bold;
   text-align: left;
-  font-size: 7em;
+  font-size: 5em;
   color: #404040 !important;
   text-decoration: none !important;
 }

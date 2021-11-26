@@ -8,19 +8,8 @@ Array.prototype.random = function() {
 
 let promptList = [
   "test. apples. are. green.",
-  // "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin risus nisl, tempor non mi a, convallis porta eros. Quisque at ligula ac dui aliquam vulputate eget in nunc. Ut felis orci, pretium sed metus in, molestie gravida mi. Praesent nec lacinia metus. In hac habitasse platea dictumst. Duis mollis lacinia eros, vel feugiat magna mattis sit amet. Sed aliquet massa ac libero dictum imperdiet. Nam eleifend, massa eu dictum sodales, sem diam lobortis nulla, ut dapibus massa quam in arcu. In pulvinar metus vel nibh luctus, quis convallis massa posuere. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nullam pellentesque purus est, eget hendrerit nisl elementum sed. Aenean ullamcorper finibus commodo. Nunc fermentum sed urna sit amet dapibus. "
-  // "I like purple$bananas.",
-  // "David is a$monkey.",
-  // "The big purple fox ate the small$orange mouse.",
-  // "Kappa Theta Pi stands for the love for technology",
-  // "Hey diddle diddle, The cat and the fiddle, The cow jumped over the moon. The little dog laughed to see such sport, And the dish ran away with the spoon.",
-  // "Hickory Dickory Dock. The mouse ran up the clock. The clock struck one. The mouse ran down. Hickory Dickory Dock",
-  // "I’m a little teapot, short and stout. Here is my handle, here is my spout.",
-  // "Mary had a little lamb, Little lamb, little lamb. Mary had a little lamb, Its fleece was white as snow.",
-  // "Ring around the rosie, a pocket full of posies, atishoo, atishoo, we all fall down!",
-  // "Rock a bye baby, on the tree top, When the wind blows the cradle will rock, When the bough breaks the cradle will fall, And down will come baby, cradle and all.",
-  // "Row, row, row your boat gently down the stream, merrily, merrily, merrily, merrily, life is but a dream",
-  // "Somebody once told me the world is gonna roll me, I ain't the sharpest tool in the shed. She was looking kind of dumb with her finger and her thumb, in the shape of an L on her forehead"
+  "I am a programmer. I am a programmer. I like food.",
+
 ];
 
 

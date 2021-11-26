@@ -14,7 +14,6 @@
   let matchHistoryTime = []
   getUserData().then((data) => {
     thisUser = getUser().email
-    console.log(getUser())
     avgWPM = data.avgWPM
     matchHistory = data.matchHistory
     numGames = data.numGames
