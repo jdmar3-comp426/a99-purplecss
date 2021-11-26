@@ -70,17 +70,16 @@ function onType(e) {
     lineCount++;
   }
 
-  for (let i in dataBefore) {
-    if (dataBefore[i] != prompt[i]) {
-      messageColor = "green";
-      gameOver = true;
-      gameWin = false;
-      gameResult = "try again"
-      gameWinResult = "u missed something lol &#128512;";
-      typeZIndex = -1;
-      break;
-    }
+
+  if (dataBefore[dataBefore.length-1] != prompt[dataBefore.length-1]) {
+    messageColor = "green";
+    gameOver = true;
+    gameWin = false;
+    gameResult = "try again"
+    gameWinResult = "u missed something lol &#128512;";
+    typeZIndex = -1;
   }
+
 
   if (dataBefore == prompt) {
     console.log("daw;")
