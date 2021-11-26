@@ -52,6 +52,8 @@ function onType(e) {
         return;
       }
   }
+  
+  if (gameOver) { return; }
 
   if (seconds == 0) {
     seconds = new Date().getTime() / 1000;
@@ -81,6 +83,7 @@ function onType(e) {
   }
 
   if (dataBefore == prompt) {
+    console.log("daw;")
     // end game GAME WIN
     let timeElapsed = new Date().getTime() / 1000 - seconds;
     let wordsPerMin = numWords / timeElapsed * 60
