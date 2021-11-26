@@ -1,4 +1,7 @@
 <script>
+ import { updateUserStats, getUser } from '../users'
+
+
 Array.prototype.random = function() {
   return this[Math.floor((Math.random()*this.length))];
 }
@@ -12,27 +15,54 @@ let promptList = [
 let prompt = promptList.random();
 let dataBefore;
 let gameOver = false;
-
+let seconds = 0;
+let gameResult = "Try Again."
+let gameWin = false;
+let gameWinResult = ""
+let  wordsPerMin;
 function onType() {
+  if (seconds == 0) {
+    seconds = new Date().getTime() / 1000;
+  }
   for (let i in dataBefore) {
     if (dataBefore[i] != prompt[i]) {
       gameOver = true;
-      dataBefore = "";
-      prompt = promptList.random();
+      gameResult = "Try Again"
+      gameWinResult = ""
       break;
     }
   }
+
+  if (dataBefore == prompt) {
+    // end game GAME WIN
+    let timeElapsed = new Date().getTime() / 1000 - seconds;
+    let words = prompt.split(" ").length;
+    wordsPerMin = words / timeElapsed * 60
+    gameOver = true;
+    gameWin = true;
+    gameWinResult = `Great Job! You typed ${wordsPerMin} words per minute.`
+    gameResult = 'Play again.'
+    
+    if (getUser() != null) updateUserStats(wordsPerMin)
+  }
+  
 }
 
 function tryAgain() {
   gameOver = false;
+  gameWin = false
+  gameResult = ""
+  seconds = 0;
+  dataBefore = "";
+  prompt = promptList.random();
 }
 </script>
 
 <main>
   {#if gameOver}
     <div id="failed-message">
-      <button on:click={tryAgain}>Try again</button>
+      <p>{gameWinResult}</p>
+      <button on:click={tryAgain}>{gameResult}</button>
     </div>
   {:else}
     <div id="game-container">
