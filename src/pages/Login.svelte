@@ -2,23 +2,25 @@
   import { signUserIn, getUser } from "../users";
   import { inputType } from "../common";
 
+
+  function exitToMain() {
+    setTimeout(() => {
+      window.location.href = '/';
+    }, 500);
+  }
+
+
   if (getUser() != null) {
     window.location.href = '/'
   }
 
-  console.log(getUser())
-
-  let thisUser = "";
-  let thisPass = "";
+  let thisUser, thisPass = "";
   let successLog = false;
   function handleClick() {
     signUserIn(thisUser, thisPass).then((user) => {
       if (user != null) {
         successLog = true;
-        
-        setTimeout(() => {
-            window.location.href = '/';
-          }, 1000);
+        exitToMain();
       }
     });
 	}
@@ -30,7 +32,7 @@
   <h1>login</h1>
   
   {#if successLog}
-    <p>logged in!</p>
+    <p>logged in! redirecting to main...</p>
   {:else}
     <div id="form-container">
       <div class="input-container">

@@ -22,7 +22,6 @@
 	router('/app', () => { page = LandingPage; title = "Perfect Type"; loadedNotPlay = true; });
 	router('/app/play', () => {
 		page = Index; title = "Perfect Type - Play";
-		
 		if (!loadedNotPlay) {
 			window.location.href = "/";
 		}
