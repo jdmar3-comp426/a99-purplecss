@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword, signOut, signInWithEmailAndPassword, deleteUser, deleteDoc } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signOut, signInWithEmailAndPassword, deleteUser } from "firebase/auth";
 const sessionStorage = window.sessionStorage;
 
 let auth;
@@ -33,14 +33,17 @@ export async function deleteThisUser() {
         fetch(`http://localhost:3000/app/delete/users/${getUser().uid}`, {
             method: 'delete',
             headers: { "Content-Type": "application/json" },
-        }).then( 
+        }).then(() => {
             deleteUser(auth.currentUser).then(() => {
+                sessionStorage.setItem("user", "");
+                window.location.href = "/"
+            })
+        })
+    } catch(e) {
+        deleteUser(auth.currentUser).then(() => {
             sessionStorage.setItem("user", "");
             window.location.href = "/"
-        }))
-	    
-    } catch(e) {
-        console.log('failure deleting account')
+        })
     }
 }
 
