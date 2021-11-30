@@ -15,7 +15,7 @@ margin-top: -2rem;
 }
 
 #rules {
-    width: 40%;
+    width: 80%;
     margin: auto;
 }
 
@@ -38,12 +38,12 @@ margin-top: -2rem;
         <h1>how to play</h1>
         <hr>
         <div id="rules">
-            <h2>warning: this game is made to trigger you &#128521; </h2>
+            <h2>warning: this game is made to annoy you &#128521; </h2>
            <div id="rules-container">
-                • log in to your account or create one if you don't have one.
+                • <a href="/app/login">log in</a> to your account or <a href="/app/signup">create one</a> if you don't have one.
                 <br>
                 <br>
-                • navigate to the play page.
+                • navigate to the <a href="/app/play">play</a> page.
                 <br>
                 <br>
                 • start typing!
@@ -52,6 +52,6 @@ margin-top: -2rem;
                 <br>
             </div>
         </div>
-        <a href="/app/play"><button>go back</button></a>
+        <a href="/app/play"><button>start playing &rarr;</button></a>
     </div>
 </main>
