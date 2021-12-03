@@ -13,3 +13,9 @@ export function inputType(e, handler) {
         label.style.fontSize = "1.5em";
     }
 }
+
+export function exitToMain() {
+    setTimeout(() => {
+      window.location.href = '/';
+    }, 1000);
+  }

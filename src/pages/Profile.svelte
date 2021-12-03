@@ -1,5 +1,5 @@
 <script>
-  import { getUserData, getUser } from "../users";
+  import { getUserData, getUser, deleteThisUser } from "../users";
 
   
   if (getUser() == null) {
@@ -19,6 +19,15 @@
     numGames = data.numGames
     matchHistoryTime = data.matchHistoryTime
   })
+
+  function deleteAccount() {
+    var result = prompt("perfectly type 'yes' if you really want to delete: ")
+    if (result == "yes") {
+      deleteThisUser((getUser())).then(()=> {
+      })
+    } 
+  }
+
 </script>
 
 <style>
@@ -85,6 +94,14 @@
     {:else} 
       no matches found.
     {/if}
+  </div>
+
+
+  <div>
+    <br>
+    <button on:click={deleteAccount}> 
+      delete account 
+    </button>
   </div>
 
 </main>

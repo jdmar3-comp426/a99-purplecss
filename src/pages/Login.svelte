@@ -1,13 +1,6 @@
 <script>
   import { signUserIn, getUser } from "../users";
-  import { inputType } from "../common";
-
-
-  function exitToMain() {
-    setTimeout(() => {
-      window.location.href = '/';
-    }, 500);
-  }
+  import { inputType, exitToMain } from "../common";
 
 
   if (getUser() != null) {
