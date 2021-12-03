@@ -33,7 +33,7 @@
   font-weight: bold;
   text-align: left;
   font-size: 5em;
-  color: #404040 !important;
+  color: #252525 !important;
   text-decoration: none !important;
 }
 </style>
