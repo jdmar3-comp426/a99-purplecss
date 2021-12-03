@@ -22,40 +22,47 @@
 </script>
 
 <style>
+  .profile {
+    font-weight: bold;
+    color: #252525;
+    text-decoration: underline;
+  }
   .centering {
     display:inline-block;
-    font-weight: bold;
+    color: #252525;
   }
   .match-hist {
     float: left;
     padding: 20px
-    
+  }
+  .list {
+    font-weight: normal;
+    color: #252525;
   }
 </style>
 
 {#if getUser() != null}
 
 <main>
-  <h1>
+  <h1 class = "profile">
     profile
   </h1>
   
-  <h2>
+  <h2 class = "list">
     username: {thisUser}
+    
   </h2>
 
-  <h2>
+  <h2 class = "list">
     average perfect wpm: {avgWPM}
   </h2>
 
-  <h2>
+  <h2 class = "list">
     number of games: {numGames}
   </h2>
 
-  
-
-  <h2>
-    recent games :
+  <h2 class = "list">
+    recent games:
   </h2>
   <div class="centering">
     {#if matchHistory.length != 0}
