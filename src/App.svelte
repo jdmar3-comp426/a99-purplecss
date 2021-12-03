@@ -22,15 +22,14 @@
 	router('/app', () => { page = LandingPage; title = "Perfect Type"; loadedNotPlay = true; });
 	router('/app/play', () => {
 		page = Index; title = "Perfect Type - Play";
-		
 		if (!loadedNotPlay) {
 			window.location.href = "/";
 		}
 	});
-	router('/app/login', () => { page = Login; title = "Perfect Type - Login"; loadedNotPlay = true; });
-	router('/app/signup', () => { page = Signup; title = "Perfect Type - Sign Up"; loadedNotPlay = true; });
-	router('/app/profile', () => { page = Profile; title = "Perfect Type - Profile"; loadedNotPlay = true; });
-	router('/app/rules', () => { page = Rules; title = "Perfect Type - Rules"; loadedNotPlay = true; });
+	router('/app/login', () => { page = Login; title = "Perfect Type - Login"; });
+	router('/app/signup', () => { page = Signup; title = "Perfect Type - Sign Up"; });
+	router('/app/profile', () => { page = Profile; title = "Perfect Type - Profile"; });
+	router('/app/rules', () => { page = Rules; title = "Perfect Type - Rules"; });
 
 	router.start();
 </script>
