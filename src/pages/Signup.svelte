@@ -43,13 +43,10 @@
             'data': defaultDataInitialization,
           }),
       }).then(() => {
-        if (user != null) {
-          successLog = true;
-          exitToMain()
-        }    
+        successLog = true;
         })
     });
-    
+    exitToMain();  
     
 	}
 
