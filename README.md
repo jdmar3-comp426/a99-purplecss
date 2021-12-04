@@ -1,6 +1,9 @@
 ﻿# Perfect Type
 Our webapp is a dynamic typing game that allows for real-time user input. User's make an account and are able to login into the game. The beauty of perfect type is its zero-tolerence for user error. After a user makes one mistake, they are given a new question rather than being allowed to continue. This molds the player into a more disciplined typer. 
 
+## Demo
+You can access the demo at this YouTube link: https://youtu.be/EZ0-mbO3aXw
+Enjoy!
 
 ## Installation/Run Instructions
 
