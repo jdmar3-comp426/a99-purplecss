@@ -8,7 +8,7 @@
 - `doc`, `getDoc`, `setDoc`, `deleteDoc`
 
 
-## `initFirebase`
+## initFirebase
 <hr>
 
 Description: Initializes our database and saves a reference to that database
@@ -19,7 +19,7 @@ Return: `None`
 
 > Only needs to be called once during initialization
 
-## `getDocument`
+## getDocument
 <hr>
 
 Params: 
@@ -30,7 +30,7 @@ Return: `{object}`: Javascript object containing the information from the retrie
 
 Description: Sends an asynchronous request to the FirebaseAPI retrieving a document from collection of documents
 
-## `setDocument`
+## setDocument
 <hr>
 
 Params: 
@@ -43,7 +43,7 @@ Return: `{object}`: Javascript object containing the set/updated data
 
 Description: Sends an asynchronous request to the FirebaseAPI creating document in the database
 
-## `updateDocument`
+## updateDocument
 <hr>
 
 Params: 
@@ -56,7 +56,7 @@ Return: `{object}`: Javascript object containing update in the document
 
 Description: Sends an asynchronous request to the FirebaseAPI creating document in the database
 
-## `deleteDocument`
+## deleteDocument
 <hr>
 
 Params: 

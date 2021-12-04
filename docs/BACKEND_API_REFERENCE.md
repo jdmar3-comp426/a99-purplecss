@@ -20,24 +20,24 @@ Description: Starts the server on port: `{HTTP_PORT}`
 
 ## User Routing
 
-## `get`
+## get
 <hr>
 
-### `/`
+### /
 Description: Loads the root directory through the browser. Loads the index/home page
 
-### `/app/`
+### /app/
 Description: Loads the root directory through the browser. Loads the index/home page
 
-### `/app/:path/`
+### /app/:path/
 Description: This method will route the user to the given HTML page is given in the path variable.
 
 `:path` can be substititued with the following pages:
- - `login`
- - `play`
- - `profile`
- - `rules`
- - `signup`
+ - login
+ - play
+ - profile
+ - rules
+ - signup
 
 
 ## post
