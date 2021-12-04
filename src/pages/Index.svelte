@@ -247,6 +247,7 @@ function tryAgain() {
       <div id="message" on:keyup={tryAgain}>
         <p id="result" style="color:{messageColor}">{@html gameWinResult}</p>
         <button on:click={tryAgain}>{gameResult}</button>
+        <p>Protip: press 'space' or 'enter' to also go again</p>
       </div>
     {:else}
       <div id="game-container">
