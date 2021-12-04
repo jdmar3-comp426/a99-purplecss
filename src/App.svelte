@@ -1,9 +1,16 @@
+<!--
+	Main svelte app component for front end
+-->
+
 <script>
-	import { initFirebase, getUser } from "./users"
-	import router from 'page';
+	// Import firebase authentication init function
+	import { initFirebase } from "./users"
+	import router from 'page'; // Routing system
 	
+	// Import the nav header component
 	import Header from './pages/Header.svelte';
 	
+	// The other pages on the website
 	import LandingPage from './pages/LandingPage.svelte';
 	import Index from './pages/Index.svelte';
 	import Login from './pages/Login.svelte';
@@ -11,17 +18,20 @@
 	import Profile from './pages/Profile.svelte';
 	import Rules from './pages/Rules.svelte';
 
-	initFirebase();
+	initFirebase(); // Init the Firebase authentication system
 
 	let title;
 	let page;
 
 	let loadedNotPlay = false;
 
+	// Route definitions for the frontend. The backend handles most of this, but svelte also needs to know the path conencts to each component
 	router('/', () => { page = LandingPage; title = "Perfect Type"; loadedNotPlay = true; });
 	router('/app', () => { page = LandingPage; title = "Perfect Type"; loadedNotPlay = true; });
 	router('/app/play', () => {
 		page = Index; title = "Perfect Type - Play";
+
+		// For some reason the game doesnt work if you start on the play page, so this just forces someone to load the landing page 
 		if (!loadedNotPlay) {
 			window.location.href = "/";
 		}
@@ -35,6 +45,9 @@
 </script>
 
 <style>
+	/**
+		Global CSS definitions that applies to all components
+	*/
 	:global(:root) {
 		--main-bg-color: #F4F1E2;
 	}
@@ -130,6 +143,10 @@
 		color: black !important;
 	}
 
+	/**
+		END global css definitions
+	*/
+
 	#rules {
 		position: absolute;
 		bottom: 20px;
@@ -141,14 +158,22 @@
 	}
 </style>
 
+<!-- 
+	Define the HTML head values such as the title and charset
+	svelte:head indicates to svelte to modify the actual document head and not just the component head
+-->
 <svelte:head>
 	<title>{title}</title>
 	<meta charset="utf-8">
 </svelte:head>
 
+<!-- insert the header (i.e. navbar) -->
 <Header />
+
+<!-- insert the contents of whatever page is being loaded from the route -->
 <svelte:component this="{page}" />
 
+<!-- If the page is index or the landing page show the rules -->
 {#if page == Index || page == LandingPage}
 	<div id="rules">
 		see the rules and how to play <a href="/app/rules">here</a>
