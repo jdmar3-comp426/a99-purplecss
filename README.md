@@ -2,7 +2,7 @@
 Our webapp is a dynamic typing game that allows for real-time user input. User's make an account and are able to login into the game. The beauty of perfect type is its zero-tolerence for user error. After a user makes one mistake, they are given a new question rather than being allowed to continue. This molds the player into a more disciplined typer. 
 
 
-## Setup
+## Installation/Run Instructions
 
 After cloning the github repository (link here) follow these steps:
  1. Open a new terminal 
@@ -23,13 +23,13 @@ Our Team consists of 5 highly motivated and enthusiastic students at UNC Chapel 
  - Front End/Back End Lead: Abhay
  - Database Lead: David
 
-## Testing
-To test our site, ensure your make an account using the login menu. Use the following login to test our game.
+## Dependencies
+ - body-parser
+ - express
+ - firebase
+ - svelte
 
- - Username: `pintomatthew15@gmail.com`
- - Password: `P@ssword!`
 
- 
 ## References in /docs/ directory
 Any and all references to the `/docs/` directory will be placed here
 
