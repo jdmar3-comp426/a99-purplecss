@@ -1,3 +1,11 @@
+/**
+ * Summary.
+ * Connects to the Firebase API to manage database interactions for the backend
+ * 
+ * @see /index.js
+ * @see /docs/.md
+ */
+
 // Import required functions from Firebase libaries
 const { initializeApp } = require("firebase/app");
 const { getFirestore } = require("firebase/firestore");
