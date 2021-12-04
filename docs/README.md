@@ -21,7 +21,6 @@ After cloning the github repository (link here) follow these steps:
 
  ## Table of Contents
 - [API Reference](API_REFERENCE.md)
-- backend
 - frontend
-- [Database Reference](DATABASE.md)
+- [Backend](BACKEND.md)
 
