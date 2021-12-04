@@ -1,7 +1,11 @@
+<!-- 
+  Svelte component for the profile page
+ -->
 <script>
+  // Import the needed Firebase things
   import { getUserData, getUser, deleteThisUser } from "../users";
 
-  
+  // If there is no user then send the back to main page
   if (getUser() == null) {
     window.location.href = '/'
   }
@@ -11,7 +15,9 @@
   let avgWPM = "";
   let numGames = "";
   let matchHistory = [];
-  let matchHistoryTime = []
+  let matchHistoryTime = [];
+
+  // get in the user data from the API / database
   getUserData().then((data) => {
     thisUser = getUser().email
     avgWPM = data.avgWPM
@@ -20,11 +26,14 @@
     matchHistoryTime = data.matchHistoryTime
   })
 
+  /**
+   * Summary.
+   * Delete an account
+   */
   function deleteAccount() {
-    var result = prompt("perfectly type 'yes' if you really want to delete: ")
+    const result = prompt("perfectly type 'yes' if you really want to delete: ")
     if (result == "yes") {
-      deleteThisUser((getUser())).then(()=> {
-      })
+      deleteThisUser((getUser()));
     } 
   }
 
@@ -50,8 +59,8 @@
   }
 </style>
 
+<!-- Only load the page if a user is logged in -->
 {#if getUser() != null}
-
 <main>
   <h1 class = "profile">
     profile
@@ -74,6 +83,7 @@
     recent games:
   </h2>
   <div class="centering">
+    <!-- Only show if there actualy is a match history -->
     {#if matchHistory.length != 0}
     <div class="match-hist">
       time:
@@ -85,7 +95,7 @@
     </div>
     <div class="match-hist">
       wpm:
-      {#each matchHistory as match}
+      {#each matchHistory as match} <!-- For each match in matchHistory -->
         <div>
           <span>{match}</span>
         </div>
