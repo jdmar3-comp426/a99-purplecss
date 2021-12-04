@@ -53,7 +53,9 @@ function onType(e) {
       }
   }
   
-  if (gameOver) { return; }
+  if (gameOver) { 
+    seconds = 0;
+    return; }
 
   if (seconds == 0) {
     seconds = new Date().getTime() / 1000;
@@ -74,6 +76,7 @@ function onType(e) {
     messageColor = "green";
     gameOver = true;
     gameWin = false;
+    seconds = 0;
     gameResult = "try again"
     gameWinResult = "u missed something lol &#128512;";
     typeZIndex = -1;
@@ -90,6 +93,7 @@ function onType(e) {
     }
     gameOver = true;
     gameWin = true;
+    seconds = 0;
     messageColor = "red";
     gameWinResult = `u won !? &#128550; you typed ${wordsPerMin} words per minute.`
     gameResult = 'play again'
