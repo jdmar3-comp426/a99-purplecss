@@ -20,7 +20,7 @@ After cloning the github repository (link here) follow these steps:
  - svelte
 
  ## Table of Contents
-- [API Reference](API_REFERENCE.md)
-- frontend
-- [Backend](BACKEND.md)
+- [API Reference](BACKEND_API_REFERENCE.md)
+- [Frontend](FRONTEND_REFERENCE.md)
+- [Backend](DATABASE_REFERENCE.md)
 
