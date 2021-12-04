@@ -1,11 +1,18 @@
+<!-- 
+  Svelte component for the main game page
+ -->
 <script>
+  // import the needed Firebase functions
  import { updateUserStats, getUser } from '../users'
 
-
+/**
+ * Define new prototype for arrays that just selects a random element
+ */
 Array.prototype.random = function() {
   return this[Math.floor((Math.random()*this.length))];
 }
 
+// List of all pontential prompts. Should be automated but thats for later
 let promptList = [
   "test. apples. are. green.",
   "I am a programmer. I am a programmer. I like food.",
@@ -24,11 +31,14 @@ let promptList = [
 ];
 
 
+// Pre parse all the prompts the requried format
 for (let i=0;i<promptList.length;i++) {
   promptList[i] = promptList[i].replaceAll(". ", ".$");
 }
 
+// Define needed vars
 let prompt = promptList.random();
+// get number of words in selected prompt
 const numWords = (prompt.split('.').join(' ').split(' ').join('$').split('$').filter(e => e)).length
 let oPrompt = prompt.split("$")[0] + "$" + prompt;
 let dataBefore = "";
@@ -45,25 +55,36 @@ let promptLineHeight = 50;
 let lineCount = 0;
 let updatedUser = false
 
+/**
+ * Summmary.
+ * When the user types something
+ * 
+ * @param {object} e    Event handler from the textbox
+ */
 function onType(e) {
-  if (e.keyCode === 13 || e.keyCode == 32) {
+  if (e.keyCode === 13 || e.keyCode == 32) { // If enter or space and the game is ended then restart
       if (gameOver) {
         tryAgain();
         return;
       }
   }
   
+  // If the game is over then disable typing and the seconds timer
   if (gameOver) { 
     seconds = 0;
-    return; }
+    return;
+  }
 
+  // Start counting
   if (seconds == 0) {
     seconds = new Date().getTime() / 1000;
   }
 
   let dollar = false;
 
+  // If the end of a line is reached
   if (prompt[dataBefore.length] == "$") {
+    // Delete the current line and go to next line
     prompt = prompt.substring(prompt.indexOf("$")-1).replace("$", "");
     dataBefore = dataBefore.substring(dataBefore.length-1);
     dollar = true;
@@ -72,6 +93,7 @@ function onType(e) {
   }
 
 
+  // If the type char isnt equal to the real char, then end the game
   if (dataBefore[dataBefore.length-1] != prompt[dataBefore.length-1]) {
     messageColor = "green";
     gameOver = true;
@@ -83,14 +105,19 @@ function onType(e) {
   }
 
 
+  // If the all the letters typed match all the letters in the prompt
   if (dataBefore == prompt) {
     // end game GAME WIN
     let timeElapsed = new Date().getTime() / 1000 - seconds;
-    let wordsPerMin = numWords / timeElapsed * 60
+    let wordsPerMin = numWords / timeElapsed * 60;
+
+    // if the user is logged in and there is no other errors then update their stats page
     if (getUser() != null && seconds != null && !updatedUser) {
       updateUserStats(wordsPerMin)
       updatedUser = true;
     }
+
+    // reset things
     gameOver = true;
     gameWin = true;
     seconds = 0;
@@ -100,6 +127,7 @@ function onType(e) {
     typeZIndex = -1;
   }
 
+  // If the end of the line was reached do some pre parsing for the next line and animation
   if (dollar) {
     prompt = prompt.substring(1);
     dataBefore = dataBefore.substring(1);
@@ -112,6 +140,10 @@ function onType(e) {
   } 
 }
 
+/**
+ * Summary.
+ * Restart the game / reset all vars
+ */
 function tryAgain() {
   gameOver = false;
   gameWin = false
@@ -129,6 +161,7 @@ function tryAgain() {
 
 // Register onpaste on inputs and textareas in browsers that don't
 // natively support it.
+// Basically disables the ability to copy / paste things
 (function () {
     var onload = window.onload;
 
@@ -247,6 +280,7 @@ function tryAgain() {
 
 <main>
   <div class="typing">
+    <!-- Show the message only if the game is done -->
     {#if gameOver}
       <div id="message" on:keyup={tryAgain}>
         <p id="result" style="color:{messageColor}">{@html gameWinResult}</p>
