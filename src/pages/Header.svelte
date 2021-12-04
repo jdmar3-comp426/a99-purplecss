@@ -1,7 +1,15 @@
+<!-- 
+  Svelte component for the header / navbar
+ -->
 <script>
+  // Import required Firebase functions
   import { getUser, logoutUser } from "../users";
 
 
+  /**
+   * Summary.
+   * Log the user out
+   */
   function logUserOut() {
     logoutUser().then((user) => false)
 	}
@@ -47,6 +55,7 @@
   </a>
   <div class="header-right">
     <a href="/app/play" class="clickable">play</a>
+    <!-- If the user isnt logged in then show the login/signup otherwise show profile and logout -->
     {#if getUser() == null}
       <a href="/app/login" class="clickable">login</a>
       <a href="/app/signup" class="clickable">signup</a>

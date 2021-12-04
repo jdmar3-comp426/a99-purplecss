@@ -1,3 +1,6 @@
+<!-- 
+    Svelte component for the landing page
+ -->
 <style>
     button {
         font-size: 2em;

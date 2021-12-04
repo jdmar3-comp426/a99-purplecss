@@ -1,3 +1,7 @@
+<!-- 
+    Svelte component for the rules page
+ -->
+
 <style>
 
 h1 {
