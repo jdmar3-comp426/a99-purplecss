@@ -38,7 +38,7 @@ app.get("/", (req, res) => {
  * Summary.
  * If user routes to /app/ directory through the browser load the index/home page.
  * 
- * @return The root HTML page.
+ * @returns The root HTML page.
  */
 app.get("/app/", (req, res) => {
     res.sendFile('public/index.html', {root: __dirname });  // Send the index page
@@ -50,7 +50,7 @@ app.get("/app/", (req, res) => {
  * 
  * @param {string} :path    the path to which the user is trying to reach in the browser
  * 
- * @return The HTML page which the user is trying to reach. 
+ * @returns The HTML page which the user is trying to reach. 
  */
 app.get("/app/:path/", (req, res) => {
     const path = req.params.path; // Get the path user went to
@@ -68,7 +68,7 @@ app.get("/app/:path/", (req, res) => {
  * @param {string} :docID         which document in the collection to modify
  * @see /firebase.js
  * 
- * @return the JSON result of the specificed request
+ * @returns the JSON result of the specificed request
  */
 app.use("/app/:method/:collection/:docID", async (req, res) => {
     // Get the required parameters
