@@ -48,11 +48,11 @@
       return
     }
 
-    let method = "post";
-    let endpoint = `http://localhost:3000/app/${method}/users/${user.uid}`;
-
     // Create the user in the Firebase authentication system and then also send data to API so can create the user entry in the database
-    createUser(thisUser, thisPass).then((user) => {
+    createUser(thisUser, thisPass).then((user) => {  
+      let method = "post";
+      let endpoint = `http://localhost:3000/app/${method}/users/${user.uid}`;
+
       fetch(endpoint, {
         method: method,
         headers: { "Content-Type": "application/json" },
