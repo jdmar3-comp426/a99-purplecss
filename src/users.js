@@ -1,3 +1,13 @@
+/**
+ * Summary.
+ * Handles user authentication and user database information
+ * 
+ * Description.
+ * Handles all user interactions with the authentication (creation/signin/logout). Also updates / retrieves the user information stored in our database
+ * 
+ * @see /docs/.md
+ */
+
 // Import required authentication firebase libraries
 import { initializeApp } from "firebase/app";
 import { getAuth, createUserWithEmailAndPassword, signOut, signInWithEmailAndPassword, deleteUser } from "firebase/auth";

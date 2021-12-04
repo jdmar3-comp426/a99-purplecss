@@ -1,3 +1,15 @@
+/**
+ * Summary.
+ * Create backend for API. Connects to firebase script for database updates
+ * 
+ * Description.
+ * Uses Express to create a backend server. The server is hosted at 'localhost:3000'. The server uses the firebase script to connect to the
+ * Firebase API for database interactions/management.
+ * 
+ * @see /firebase.js
+ * @see /docs/.md
+ */
+
 // Import requried libaries
 const express = require("express");
 const bodyParser = require("body-parser");
