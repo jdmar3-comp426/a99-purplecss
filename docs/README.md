@@ -1,4 +1,4 @@
-﻿# Perfect Type
+# Perfect Type
 Our webapp is a dynamic typing game that allows for real-time user input. User's make an account and are able to login into the game. The beauty of perfect type is its zero-tolerence for user error. After a user makes one mistake, they are given a new question rather than being allowed to continue. This molds the player into a more disciplined typer. 
 
 
@@ -12,26 +12,16 @@ After cloning the github repository (link here) follow these steps:
  5. Again in your terminal run: `npm run build`
  6. Once this has finished run: `node index.js`
  7. Finally, open your browswer and type `localhost:3000` in the URL
- 
-## Team Management
 
-Our Team consists of 5 highly motivated and enthusiastic students at UNC Chapel Hill. Their names and responsibilities are as follows:
-
- - Review Manager/Design Lead: Ashna
- - Plan Manager: Alan
- - Documentation Manager: Matthew
- - Front End/Back End Lead: Abhay
- - Database Lead: David
-
-## Dependencies
+ ## Dependencies
  - body-parser
  - express
  - firebase
  - svelte
 
-
-
-## References in /docs/ directory
-Any and all references to the `/docs/` directory will be placed here
-
+ ## Table of Contents
+- [API Reference](API_REFERENCE.md)
+- backend
+- frontend
+- [Database Reference](DATABASE.md)
 
