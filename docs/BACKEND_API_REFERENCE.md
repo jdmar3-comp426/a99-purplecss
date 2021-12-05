@@ -1,4 +1,4 @@
-# BACKEND
+# Backend
 
 The backend API communicates with our database to store user account infromation and player statistics.
 
@@ -9,16 +9,13 @@ API endpoint is hosted at: `localhost:3000`.
 - `bodyParser`
 - [The database](DATABASE_REFERENCE.md)
 
-## `listen`
+## listen
 <hr>
 
 Params: 
 - `{string} HTTP_PORT`: String with the port that HTTP will be served on
 
 Description: Starts the server on port: `{HTTP_PORT}`
-
-
-## User Routing
 
 ## get
 <hr>
@@ -38,10 +35,28 @@ Description: This method will route the user to the given HTML page is given in 
  - profile
  - rules
  - signup
+## /app/:method/:collection/:docID
+`:method` can be substititued with the following pages:
+ - get 
+ - post
+ - patch
+ - delete
+### /app/get/:collection/:docID
+Description: retrieve the document specified in `:collection`/`:docID`
 
 
-## post
+<hr>
 
-## patch
+### /app/post/:collection/:docID
+Description: create the document specified in `:collection`/`:docID`
 
-## delete
+
+<hr>
+
+### /app/patch/:collection/:docID
+Description: update the document specified in `:collection`/`:docID`
+
+<hr>
+
+### /app/delete/:collection/:docID
+Description: delete the document specified in `:collection`/`:docID`

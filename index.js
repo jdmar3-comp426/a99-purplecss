@@ -7,7 +7,7 @@
  * Firebase API for database interactions/management.
  * 
  * @see /firebase.js
- * @see /docs/.md
+ * @see /docs/BACKEND_API_REFERENCE.md
  */
 
 // Import requried libaries
@@ -94,7 +94,7 @@ app.use("/app/:method/:collection/:docID", async (req, res) => {
 
         // Send async request to the Firebase
         result = await getDocument(collection, docID);
-    } else if (method == "post") { // if the {method} is 'set' then create the document specified in {collection}/{docID}
+    } else if (method == "post") { // if the {method} is 'post' then create the document specified in {collection}/{docID}
         
         // Get body data from request
         const data = req.body.data;

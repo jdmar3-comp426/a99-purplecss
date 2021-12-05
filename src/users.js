@@ -5,7 +5,8 @@
  * Description.
  * Handles all user interactions with the authentication (creation/signin/logout). Also updates / retrieves the user information stored in our database
  * 
- * @see /docs/.md
+ * @see /docs/BACKEND_API_REFERENCE.md
+ * @see /docs/FRONTEND_REFERENCE.md
  */
 
 // Import required authentication firebase libraries
