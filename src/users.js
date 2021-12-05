@@ -177,7 +177,7 @@ export async function updateUserStats(newWPM) {
     getUserData().then((data) => {
         // Get all the users current information from the database
         const thisUser = data.email
-        const avgWPM = data.avgWPM
+        let avgWPM = data.avgWPM
         let matchHistory = data.matchHistory
         let matchHistoryTime = data.matchHistoryTime
         const numGames = data.numGames
@@ -206,7 +206,7 @@ export async function updateUserStats(newWPM) {
 
         // Send request to API to update the user information
         fetch(endpoint, {
-            method: method,
+            method: "PATCH",
             headers: { "Content-Type": CONTENT_DATA_TYPE },
             body: JSON.stringify(
             {'data': 
