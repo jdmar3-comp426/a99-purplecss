@@ -1,4 +1,4 @@
-# DATABASE
+# Database
 
  We utilize Google Firebase which is a NoSQL database. The backend interacts with the database when querying the data.
 

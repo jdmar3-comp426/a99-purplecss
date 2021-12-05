@@ -3,7 +3,7 @@
  * Connects to the Firebase API to manage database interactions for the backend
  * 
  * @see /index.js
- * @see /docs/.md
+ * @see /docs/DATABASE_REFERENCE.md
  */
 
 // Import required functions from Firebase libaries
